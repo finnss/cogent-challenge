@@ -1,10 +1,10 @@
-import logo from '/assets/orangeLogoAlpha.png';
+import logo from '/assets/logo-en.png';
 
 /**
  * @type {import('./index').Theme}
  */
 const theme = {
-  title: 'ALFA',
+  title: 'COGENT LABS',
   logo,
 };
 

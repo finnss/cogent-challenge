@@ -1,5 +1,4 @@
 import ApiError from '../api/apiError';
-import { logout } from '/api/auth';
 import { showToast } from '/modules/toast';
 import i18n from '/i18n';
 
@@ -57,31 +56,6 @@ export const newError = (error) => (dispatch) => {
     errMessage = error;
   } else if (error instanceof ApiError) {
     toastMessage = formatBackendError(error);
-
-    // In JwtAuthFilter backend we don't have access to the error "type", so we need to handle translation to
-    // toastMessage manually for some cases here.
-    if (error.status === 403) {
-      if (!error.type) {
-        console.log('no error type. message', error.message);
-
-        // 403 can potentially indicate that we need to log the user out if one of two things is true:
-        // either the current session has timed out and user has to login again,
-        // or they haven't actually logged in uet. In either case, we log them out, which
-        // then redirects to the login screen.
-        if (error.message.includes('missing auth token')) {
-          toastMessage = i18n.t('errors.backend.missing_auth_token');
-          dispatch(logout());
-        } else if (error.message.includes('invalid auth token')) {
-          toastMessage = i18n.t('errors.backend.invalid_auth_code');
-          dispatch(logout());
-        }
-        // If instead the 403 indicated that the user tried accessing something they lack permission for, we don't
-        // log them out.
-        else {
-          toastMessage = i18n.t('errors.backend.missing_permission');
-        }
-      }
-    }
     errMessage = `API Error ${error.status}. Type: ${error.type}. Message from backend: ${error.message}`;
   } else {
     errMessage = _.get(error, ['response', 'data', 'message', 'statusText'], `Unknown Error: ${error}`);

@@ -47,7 +47,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'src', 'index.ejs'),
-      title: 'Alfa',
+      title: 'Cogent Labs',
     }),
     new DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(dev ? 'development' : 'production'),

@@ -1,6 +1,6 @@
 {
   "application": {
-    "title": "Alfa"
+    "title": "CogentChallenge"
   },
   "common": {
     "actions": {
@@ -42,49 +42,26 @@
       "desc_generic": "Something went wrong while handling your request. Please try again later or contact support if the problem persists."
     },
     "strings": {
-      "persons": "Persons",
-      "cases": "Cases",
-      "risk_assessments": "Risk assessments",
       "name": "Name",
       "user": "User",
       "number": "Number",
       "phone_nr": "Phone number",
       "time": "Time",
       "date": "Date",
-      "gender": "{{ gender }}",
-      "district": "District",
-      "geographical_unit": "Driftsenhet",
       "performed": "Performed",
       "performed_by": "Performed by",
       "performed_at": "Date performed",
-      "aggressor": "Aggressor",
-      "victim": "Victim",
-      "district_and_unit": "District and geographical unit",
       "created_at": "Date created at",
       "updated_at": "Last saved at",
-      "note": "NOTE",
-      "civil_statuses": {
-        "single": "Single",
-        "cohabitation": "Cohabitant",
-        "engaged": "Engaged",
-        "married": "Married",
-        "divorced": "Divorced",
-        "widow": "Widow"
-      },
       "time_range": "Time range",
       "start_date": "Start date",
       "end_date": "End date",
       "export_to_file": "Export data to file",
       "denomination": "Denomination",
       "category": "Category",
-      "bid": "BID",
       "type": "Type",
       "amount": "Amount",
-      "update_success": "Update successful",
-      "assessment_levels": { "high": "H", "moderate": "M", "low": "L" },
-      "near_future": "Near future",
-      "severe_violence": "Severe violence",
-      "step": "Step"
+      "update_success": "Update successful"
     }
   },
   "errors": {
@@ -94,8 +71,6 @@
     "incomplete": "Incomplete",
     "pattern": "Please use a valid format.",
     "full_name": "Please provide a full name: minimum one first name + one last name, separated by whitespaces.",
-    "required_for_freg": "You have to fill out the person number field (11 digits) to be able to search the FREG.",
-    "generic_freg": "Something went wrong while communicating with FREG. Please try again later.",
     "unknown": "Unknown",
     "generic": "Something went wrong. Please try again later or contact support.",
     "forbidden": "You do not have permission to see this content.",
@@ -116,22 +91,7 @@
       "missing_permission": "You lack the permissions to perform the request action. If you believe this to be an error, please contact support.",
 
       "person_404": "The requested person was not found in the system. Please try again later or contact support.",
-      "aggressor_404": "The requested aggressor was not found in the system. Please try again later or contact support.",
-      "victim_404": "The requested victim was not found in the system. Please try again later or contact support.",
-      "person_exists": "The person with this person number is already registered in the system.",
-
-      "case_404": "The requested case was not found in the system. Please try again later or contact support.",
-      "case_exists": "There is already a case between these two persons registered in the systen.",
-      "case_different_persons": "A case has to be between two different persons.",
-
-      "assessment_404": "The requested risk assessment was not found in the system. Please try again later or contact support.",
-      "assessment_case_404": "Cannot start risk assessment for the requested case as the case does not appear to exists in the system. Please try again later or contact support if the problem persists.",
-      "assessment_complete": "You cannot modify a completed risk assessment.",
-
-      "invalid_category": "Invalid cateogy. Please choose a valid category.",
-      "help_404": "The requested help page was not found in the system. Please try again later or contact support.",
-      "mail_disabled": "The server rejected the request to send email. This is likely because the server is running in a DEV environment. If you see this error message and are unsure what this means, please contact support.",
-      "email_error": "Something went wrong while sending email. Please contact support if the problem persists."
+      "person_exists": "The person with this person number is already registered in the system."
     }
   },
   "components": {
@@ -141,291 +101,22 @@
     }
   },
   "routes": {
-    "search": {
-      "page_title": "Search",
-      "welcome": "Welcome to SARA:SV",
-      "welcome_subtitle1": "Alfa Lambda Fianchetto Alfa",
-      "welcome_subtitle2": "Search for past risk assessment or start a new one by searching in the field below",
-      "placeholder": "Search for person number, DUF, assessment ID or case ID",
-      "results_db": "Results in ALFA database",
-      "results_freg": "Results in FREG",
-      "results_cases": "ALFA cases",
-      "results_assessments": "Risk assessments",
-      "no_results": "No results",
-      "register_person": "Registerer person",
-      "regular_search": "Back to regular search"
+    "home": {
+      "title": "Cogent Labs Image upload service",
+      "upload": "Upload image!",
+      "jobs": "Jobs",
+      "jobs_description": "This is a list of jobs to handle the images you have uploaded.",
+      "no_jobs": "No images",
+      "no_jobs_desc": "You have not uploaded any images yet. Start by clicking the button above!",
+
+      "job_id": "Job ID",
+      "thumbnail": "Thumbnail",
+      "percentage_complete": "% complete",
+      "file_location": "File location"
     },
-    "persons": {
-      "page_title": "Person",
-      "person_nr": "Personal number",
-      "cases": "Cases",
-      "cases_desc": "Current and previous cases",
-      "past_assessments": "Risk assessments",
-      "past_assessments_desc": "Risk assessments performed across all cases",
-      "information": "Information",
-      "address": "Address",
-      "street_address": "Address",
-      "gender": "Gender",
-      "birth_date": "Birth date",
-      "amount": "Amount: {{amount}}",
-      "full_name": "Full name",
-      "last_name": "Last name",
-      "post_area": "Post number and area",
-      "get_from_freg": "Fetch info from Folkeregisteret",
-      "register_person_form_title": "Register new person",
-      "update_person_form_title": "Update person",
-      "birth_date_helper": "DD.MM.YYYY",
-      "new_case": "New case",
-      "aggressor_short": "VØ",
-      "victim_short": "VU",
-      "no_cases": "There are no cases registered for this person.",
-      "no_assessments": "There are no risk assessments associated with this person. To start a new risk assessments, first create a new case.",
-      "create_success": "Person registered in the system",
-      "update_success": "Person updated"
-    },
-    "cases": {
-      "page_title": "Case",
-      "case_id": "Case ID",
-      "case": "Case",
-      "title": "Case S{{caseId}}",
-      "time_since_last_assessment": "{{weeks}} weeks and {{days}} days since last risk assessment",
-      "past_assessments": "Risk assessments",
-      "new_assessment": "Start new assessment",
-      "continue_assessment": "Continue previously started risk assessment",
-      "no_assessments": "There are no risk assessments to display.",
-      "no_assessments_desc": "If you want to import a risk assessment done outside the system, please use the button below.",
-      "new_assessment_external": "Import a risk assessment from outside the system",
-      "create_success": "Cases registered in the system",
 
-      "register_case_form_title": "Register new case",
-      "form_role": "{{name}} is",
-      "person_exists_error": "The person with this person number already exists in the database, but with different information:",
-      "person_exists_question": "Which would you like to keep?",
-      "choose_new": "Update with new information",
-      "choose_old": "Keep previous information"
-    },
-    "assessments": {
-      "page_title": "Risk assessment",
-      "assessment_id": "Assessment ID",
-      "save_temp": "Save temporarily",
-      "new": "Ny risikovurdering",
-      "save_success": "Lagret risikovurdering",
-      "last_evaluated_to": "Last evaluated to",
-      "evaluated_to": "Evaluated to",
-
-      "steps": {
-        "1": {
-          "page_title": "Risk assessment: Information",
-          "step_name": "Information and sources",
-          "cancel_button": "Cancel and delte",
-          "cancel_confirmation_title": "Are you sure you want to cancel the risk assessment?",
-          "cancel_confirmation": "The Risk Assessment and any data you have filled in will be deleted. It will not be possible to recover it.",
-          "cancel_confirmation_yes": "Yes, delete",
-          "cancel_confirmation_no": "No, go back",
-
-          "intro_header": "Checklist for assessment of risk of further partner violence",
-          "intro_name": "ALFA",
-          "intro_desc": "Spousal Assault RISK Assessment guide: Short Version, P.R. Kropp, S.D. Hart & H. Belfrage© 2005 ProActive ReSolutions Inc, Norsk versjon J. Aa Nøttestad & C.Lynum",
-          "intro_saving": "Data is saved every five minutes. If you want to quit before completing the entire assessments, press \"Save temporarily\".",
-          "warning_1": "This document includes information with the following distribution codes:",
-          "warning_2": "H–1: Can not be used as evidence without permission",
-          "warning_3": "H–2: Should not be distributed without permission",
-
-          "assessment_performed_by": "Filled out by",
-          "assessment_started_at": "Completed at",
-          "assessment_submitted_at": "Assessment submitted",
-          "police_report_number": "Police report number",
-          "police_report_date": "Date reported",
-          "past_assessment": "Past assessment",
-          "repeated_violence": "Repeated violence",
-          "indicia_document_id": "Indicia document ID",
-
-          "add_alternate_address": "Add alternate address",
-          "alt_address_title": "Alternate address",
-          "alt_address_description": "Cateogry and description",
-          "alt_address_description_helper": "Type of address and why it is relevant for the risk assessment",
-          "phone_nr": "Phone number",
-          "phone_nr_unknown": "Phone number is unknown",
-          "email": "Email address",
-          "email_unknown": "Email address is unknown",
-          "email_short": "Email",
-          "update_from_freg": "Update info from freg",
-          "civil_status": "Civil status",
-          "citizenship": "Citizenship",
-          "residence_permit": "Residence permit",
-          "birth_country": "Birth country",
-          "birth_place": "Birth place",
-
-          "relation": "Relationship",
-          "relation_desc": "Relationship between the two parties",
-          "relation_help": "Status freg and short description of actual relation",
-          "are_children_involved": "Do any of the parties have children?",
-
-          "information_sources": "Information sources",
-          "information_sources_desc": "Only choose information sources that are checked and/or used",
-          "used_source_agent": "Agent 5.0",
-          "used_source_BL": "BL",
-          "used_source_PO": "PO",
-          "used_source_indicia": "Indicia",
-          "used_source_case": "Legal case",
-          "used_source_DUF": "DUF",
-          "used_source_aggressor": "Converastion with aggressor",
-          "used_source_victim": "Conversation with victim",
-          "used_source_police": "Conversation with detective, etc",
-          "used_source_other": "Other",
-          "used_source_other_desc": "Other sources",
-          "used_source_other_desc_helper": "Enter sources that do not fall under any of the above categories"
-        },
-        "2": {
-          "page_title": "Risk assessment: Risk factors",
-          "step_name": "Risk factors for violence for aggressor"
-        },
-        "3": {
-          "page_title": "Risk assessment: Aggressor's psychosocial situation",
-          "step_name": "Aggressor's psychosocial situation"
-        },
-        "4": {
-          "page_title": "Risk assessment: Victim's risk factors",
-          "step_name": "Victim's risk factors"
-        },
-        "5": {
-          "page_title": "Risk assessment: Other information",
-          "step_name": "Other information"
-        },
-        "6": {
-          "page_title": "Risk assessment: Subjective Assessment",
-          "step_name": "Subjective Assessment"
-        },
-        "7": {
-          "page_title": "Risk assessment: Measures for victim",
-          "step_name": "Measures for victim",
-
-          "mesure_follow_up_conversation": "Follow–up conversation",
-          "mesure_guidance": "Advice / guidance",
-          "mesure_visitation_ban": "Visitation ban",
-          "mesure_child_care_services": "Children's institution",
-          "mesure_mva": "MVA",
-          "mesure_ova": "OVA",
-          "mesure_concern_message": "Concern message",
-          "mesure_cross_department_meeting": "Cross–department meeting",
-          "mesure_relocation": "Relocation",
-          "mesure_address_block": "Address block",
-          "mesure_other": "Other",
-
-          "category_police": "Police",
-          "category_health": "Health",
-          "category_official": "Official measures",
-          "category_other": "Other"
-        },
-        "8": {
-          "page_title": "Risk assessment: Measures for aggressor",
-          "step_name": "Measures for aggressor",
-          "close_risk_assessment": "Close risk assessment"
-        },
-        "9": {
-          "page_title": "Risk assessment: Summary",
-          "step_name": "Summary",
-
-          "distrubution_codes": "Distribution codes",
-          "distrubution_codes_help": "Choose which distribution codes that are relevant for the information in the document",
-          "h0": "For use in crime fighting",
-          "h1": "Not for use as evidence without permission",
-          "h2": "Nor for distribution without permission",
-          "h3": "Other restriction",
-
-          "missing_required_fields": "Requires fields that have not been filled out",
-          "no_missing_fields": "No required fields are missing.",
-
-          "final_evaluation": "Risk evalution",
-          "suggested_measures": "Suggested measures",
-
-          "sources_checked": "Sources checked or used",
-          "update_by": "Update the list by going to",
-          "10_days": "10 day deadline",
-          "more_than_ten_days_old": "More than 10 days since knowledge was gained of the relationship",
-          "more_than_ten_days_old_warning": "It has been {{days}} days since the report date and the start of the assessment",
-
-          "submit_confirmation_title": "Are you sure you want to submit this risk assessment?",
-          "submit_confirmation_content": "The risk assessment will be stored in the ALFA case {{caseId}}. It will not be possible to edit the risk assessment after it has been submmitted.",
-          "submitted": "The risk assessment was submitted",
-          "copy_link": "Copy link to filled assessment",
-          "done": "Done. close",
-
-          "read_only": {
-            "page_title": "ALFA Risk Assessment {{id}}",
-            "download_pdf": "Download PDF version",
-            "copy_link": "Copy link to this assessment",
-            "see_complete_assessment": "See complete risk assessment",
-            "suggested_measures": "Suggested measures"
-          }
-        }
-      }
-    },
-    "statistics": {
-      "page_title": "Statistics",
-      "tab_risk_assessments": "Risk assessments",
-      "tab_measures": "Measures",
-      "tab_districts": "Districts",
-      "tab_personal": "Personal",
-
-      "choose_district_first": "Choose district first",
-      "clear_filter": "Clear filters",
-
-      "eval_help_text": "The denominations H, M and L refer to the risk for severe or fatal violence",
-      "num_assessments": "Num. assessments",
-      "num_cases": "Num. cases",
-      "num_h": "Num. H",
-      "num_m": "Num. M",
-      "num_l": "Num. L",
-      "num_repeated_violence": "Repeated",
-      "num_repeated_violence_long": "Repeated violence",
-      "num_ten_days": "Num. 10 day breaks",
-      "num_ten_days_short": "10 day breaks",
-
-      "no_results": "No results",
-      "no_results_desc": "No results were found for your search parameters",
-
-      "suggested_measures": "Suggested measures",
-      "start_date_helper": "For limiting statistics to a given time range"
-    },
-    "help": {
-      "page_title": "Help text",
-      "help_page": "Help page",
-      "new_help": "New help text",
-      "discard_changes": "Are you sure you want to discard your changes?",
-      "help_desc": "Here you can see, add, and delete help pages.",
-      "delete_confirmation_title": "Are you sure you want to delete this help page?",
-      "delete_confirmation_yes": "Yes",
-      "delete_confirmation_no": "No",
-      "no_help": "No help",
-      "admin_link": "Manage help pages",
-
-      "send_feedback": "Send feedback",
-      "feedback_message": "Message",
-      "feedback_message_desc": "Full description of what you want you tell",
-      "feedback_sent": "Feedback sent! Thank you for your contribution to make ALFA better.",
-
-      "title": "Title",
-      "title_help": "The title of the page this help page entails.",
-      "description": "Description",
-      "description_help": "A short description of the relevant page.",
-      "content": "Content",
-      "content_help": "The content that is displayed when the user requests help for the current page. Markdown formatting is supported.",
-      "preview": "Preview",
-      "nothing": "Nothing to display",
-      "created_help": "Help page created",
-      "updated_help": "Help page updated",
-      "deleted_help": "Help page deleted",
-
-      "step_label_1": "Step 1: Information",
-      "step_label_2": "Step 2: Risk factors",
-      "step_label_3": "Step 3: Aggressor's psychosocial situation",
-      "step_label_4": "Step 4: Victim's risk factors",
-      "step_label_5": "Step 5: Other information",
-      "step_label_6": "Step 6: Subjective Assessment",
-      "step_label_7": "Step 7: Measures for victim",
-      "step_label_8": "Step 8: Measures for aggressor",
-      "step_label_9": "Step 9: Summaryg"
+    "image": {
+      "title": "Detailed image"
     }
   }
 }

@@ -1,13 +1,13 @@
 @use 'sass:math';
 @import 'colors';
 
-$color-primary: $alfa-blue-dark-police;
-$color-interactive: $alfa-blue-interactive;
-$color-interactive-secondary: $alfa-yellow-main;
-$color-secondary: $alfa-grey-gunmetal;
-$color-error: $alfa-red-alert;
-$color-warning: $alfa-yellow-warning;
-$color-success: $alfa-valid-green;
+$color-primary: $blue-dark-police;
+$color-interactive: $blue-interactive;
+$color-interactive-secondary: $yellow-main;
+$color-secondary: $grey-gunmetal;
+$color-error: $red-alert;
+$color-warning: $yellow-warning;
+$color-success: $valid-green;
 $background-default: #fff;
 $spacing: 8px;
 $border-radius: 4px;

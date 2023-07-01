@@ -12,9 +12,8 @@ import store from './store';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 
 /**
- * App is the root component and entry point
- * for Alfa-frontend
- * @returns {JSX.Element} Alfa-frontend
+ * App is the root component and entry point for the frontend
+ * @returns {JSX.Element}
  */
 function App() {
   return (

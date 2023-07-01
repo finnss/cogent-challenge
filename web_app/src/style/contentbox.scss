@@ -1,7 +1,7 @@
 @import 'variables';
 @import 'colors';
 
-$borderStyle: 1px solid $alfa-grey-silver;
+$borderStyle: 1px solid $grey-silver;
 
 .ContentBox {
   display: flex;
@@ -12,7 +12,7 @@ $borderStyle: 1px solid $alfa-grey-silver;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: $alfa-light-silver;
+    background-color: $light-silver;
     padding: spacing(1);
 
     border-top: $borderStyle;

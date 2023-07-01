@@ -104,11 +104,11 @@
   }
 
   .MuiTableHead-root {
-    border-bottom: 1px solid $alfa-grey-silver;
+    border-bottom: 1px solid $grey-silver;
   }
 
   .MuiTableRow-root {
-    border-bottom: 1px solid $alfa-grey-silver;
+    border-bottom: 1px solid $grey-silver;
     vertical-align: baseline;
 
     &:last-child {
@@ -117,7 +117,7 @@
   }
 
   .TableRowClick:hover {
-    background-color: $alfa-green-bg;
+    background-color: $green-bg;
     cursor: pointer;
   }
 
@@ -132,10 +132,18 @@
     margin-right: spacing(2);
     margin-left: -(spacing(4));
     font-size: 32px;
-    color: $alfa-green-dark;
+    color: $green-dark;
   }
 
   .TableRow:hover .TableArrow {
     opacity: 1;
+  }
+}
+
+.MuiTable-root {
+  border-collapse: collapse;
+
+  .MuiTableCell-root {
+    border: 1px solid $grey-silver;
   }
 }

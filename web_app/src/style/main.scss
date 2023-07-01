@@ -32,28 +32,40 @@ body {
   cursor: wait !important;
 }
 
+.ContentContainer {
+  display: flex;
+  height: 100%;
+}
+
+.PageContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: max(200px, 90vh);
+}
+
 .MuiInputBase-root {
   background-color: white;
 
   input:disabled,
   button:disabled,
   .Mui-disabled {
-    background-color: $alfa-grey-silver-bg;
-    color: $alfa-text-main;
+    background-color: $grey-silver-bg;
+    color: $text-main;
     -webkit-text-fill-color: inherit;
   }
 }
 
 .Mui-disabled {
-  background-color: $alfa-grey-silver-bg;
-  color: $alfa-text-main;
+  background-color: $grey-silver-bg;
+  color: $text-main;
   -webkit-text-fill-color: inherit;
 }
 
 .MuiFormControl-root.Mui-disabled,
 .MuiFormControlLabel-root.Mui-disabled,
 .MuiFormControlLabel-root .MuiFormControlLabel-label.Mui-disabled {
-  color: $alfa-text-main;
+  color: $text-main;
 }
 
 .MuiButtonBase-root.Mui-disabled,
@@ -65,7 +77,7 @@ body {
 .MuiInputLabel-root,
 .MuiInputLabel-shrink.Mui-disabled {
   background: none !important;
-  color: $alfa-grey-medium !important;
+  color: $grey-medium !important;
 }
 
 .MuiFormGroup-root .Mui-disabled,
@@ -90,7 +102,7 @@ body {
 }
 
 .MuiFormLabel-root {
-  color: $alfa-text-main !important;
+  color: $text-main !important;
 }
 
 .MuiTypography-body2 {
@@ -116,7 +128,7 @@ body {
 }
 
 .WarningBubble {
-  border: 1px solid $alfa-yellow-warning;
+  border: 1px solid $yellow-warning;
   border-radius: spacing(4);
   padding: spacing(1) spacing(2);
   width: fit-content;
@@ -128,12 +140,12 @@ body {
   height: 100%;
   width: 100%;
   overflow: hidden;
-  background-color: $alfa-grey-silver-bg;
+  background-color: $grey-silver-bg;
 }
 
 .MuiLink-root,
 a {
-  color: $alfa-blue-interactive;
+  color: $blue-interactive;
   text-decoration: none;
 
   &:hover {
@@ -152,7 +164,7 @@ a {
 }
 
 .WeakText {
-  color: $alfa-grey-medium;
+  color: $grey-medium;
 }
 
 .Italic {
@@ -167,15 +179,6 @@ a {
 
 .TextPaddedTop {
   margin-top: spacing(2);
-}
-
-.BlueBorder {
-  border: 1px solid $alfa-blue-menu-icon;
-  border-radius: 4px;
-}
-
-.MR {
-  margin-right: spacing(2);
 }
 
 .MuiTypography-h1,
@@ -200,7 +203,7 @@ a {
     position: absolute;
     height: $appbar-height;
     z-index: $appbar-zindex;
-    background-color: $alfa-dark-primary;
+    background-color: $dark-primary;
 
     .MuiToolbar-root {
       height: $appbar-height;
@@ -220,36 +223,8 @@ a {
       cursor: pointer;
     }
 
-    .SlashIcon {
-      margin-right: spacing(2);
-    }
-
     .Title {
       margin-right: auto;
-    }
-
-    .DebugBar {
-      display: flex;
-      align-items: center;
-      max-width: 512px;
-      height: 100%;
-      flex-shrink: 1;
-      margin-left: spacing(4);
-      margin-right: spacing(4);
-      padding: spacing(1);
-
-      p {
-        color: inherit;
-        padding: 0;
-        margin: 0;
-      }
-    }
-
-    .SendFeedback {
-      width: 100%;
-      border: 0;
-      border-top: 1px solid black;
-      padding: spacing(1);
     }
   }
 
@@ -308,13 +283,13 @@ a {
     .MuiSvgIcon-root {
       margin-right: spacing(2);
       font-size: 34px;
-      color: $alfa-blue-dark;
+      color: $blue-dark;
     }
   }
 
   .SubTitle {
     font-size: 1rem;
-    color: $alfa-grey-dark;
+    color: $grey-dark;
   }
 
   .SpaceBetween {
@@ -337,25 +312,28 @@ a {
   text-align: center;
 }
 
-// Table style
-.MuiTable-root {
-  border-collapse: collapse;
+.ContentContainer {
+  display: flex;
+  height: 100%;
+}
 
-  .MuiTableCell-root {
-    border: 1px solid $alfa-grey-silver;
-  }
+.PageContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: max(200px, 90vh);
 }
 
 .LightButton {
   border-radius: spacing(3);
-  background-color: $alfa-light-blue;
-  color: $alfa-text-main;
+  background-color: $light-blue;
+  color: $text-main;
   margin: spacing(1);
   padding: spacing(1) spacing(2);
   text-transform: capitalize;
 
   .MuiButton-endIcon {
-    color: $alfa-grey-active;
+    color: $grey-active;
   }
 }
 
@@ -368,44 +346,17 @@ a {
   }
 }
 
-.StatisticsButton {
-  background-color: $alfa-green-dark;
-  margin-right: spacing(2);
+.OuterGridContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
-// Accordion style
-.MuiAccordionSummary-root {
-  background-color: $alfa-light-silver;
-}
-
-fieldset {
-  display: inherit;
-  margin-inline-start: 0;
-  margin-inline-end: 0;
-  padding-block-start: 0;
-  padding-inline-start: 0;
-  padding-inline-end: 0;
-  padding-block-end: 0;
-  min-inline-size: inherit;
-  border-width: 0;
-  border-style: none;
-  border-color: transparent;
-  border-image: none;
-}
-
-.SummaryButton {
-  text-decoration: underline;
-  text-transform: none;
-  color: $alfa-blue-interactive;
-}
-
-.UserButton {
-  background: transparent;
-
-  &:hover {
-    cursor: default;
-    background: transparent;
-  }
+.GridContainer {
+  display: flex;
+  justify-content: center;
+  max-width: 800px;
 }
 
 // A utility css class that keeps a component at 50% on large

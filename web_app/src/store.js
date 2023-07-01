@@ -1,14 +1,10 @@
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
-import auth from '/modules/auth';
-import persons from '/modules/persons';
-import search from '/modules/search';
+import { configureStore } from '@reduxjs/toolkit';
+
 import toast from '/modules/toast';
-import cases from '/modules/cases';
-import riskAssessments from '/modules/riskAssessments';
-import statistics from '/modules/statistics';
 import errors from '/modules/errorHandler';
-import districts from '/modules/districts';
-import help from '/modules/help';
+import images from './modules/images';
+import jobs from './modules/jobs';
+import theme from './modules/theme';
 
 const production = process.env.NODE_ENV === 'production';
 
@@ -18,16 +14,11 @@ const production = process.env.NODE_ENV === 'production';
 const store = configureStore({
   // configureStore will automatically combine reducers
   reducer: {
-    auth,
-    persons,
-    search,
+    theme,
     toast,
-    cases,
-    riskAssessments,
-    statistics,
     errors,
-    districts,
-    help,
+    images,
+    jobs,
   },
   devTools: production ? false : true,
 });

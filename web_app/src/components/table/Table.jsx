@@ -21,7 +21,6 @@ import { TABLE_PAGINATION_ALL } from '../../util';
 import '../../style/table.scss';
 import clsx from 'clsx';
 import { Diversity2Sharp } from '@mui/icons-material';
-import CSVDownload from '/components/table/CSVDownload';
 
 const TableToolbar = ({ title, toolbarComponent }) => {
   return (
@@ -149,7 +148,7 @@ MetaRow.propTypes = {
   onClick: PropTypes.func,
 };
 
-const HeaderRowOutsideTable = ({ title, subtitle, includeCsvDownload, includeCount, csvData, data }) => {
+const HeaderRowOutsideTable = ({ title, subtitle, includeCount, data }) => {
   const { t } = useTranslation();
   return (
     <Grid item xs={12} className='SpaceBetween HeaderRowOutsideTable'>
@@ -168,7 +167,7 @@ const HeaderRowOutsideTable = ({ title, subtitle, includeCsvDownload, includeCou
       ) : (
         <span> </span>
       )}
-      {(includeCsvDownload || includeCount) && (
+      {includeCount && (
         <Grid
           item
           container
@@ -177,7 +176,6 @@ const HeaderRowOutsideTable = ({ title, subtitle, includeCsvDownload, includeCou
           style={{ justifyContent: 'end', alignItems: 'end' }}
           className='WeakText'>
           {includeCount && <span>{`${t('common.strings.amount')}: ${data?.length}`}</span>}
-          {includeCsvDownload && <CSVDownload tableData={csvData} />}
         </Grid>
       )}
     </Grid>
@@ -187,9 +185,7 @@ const HeaderRowOutsideTable = ({ title, subtitle, includeCsvDownload, includeCou
 HeaderRowOutsideTable.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  includeCsvDownload: PropTypes.bool,
   includeCount: PropTypes.bool,
-  csvData: PropTypes.any,
   data: PropTypes.any,
 };
 
@@ -202,18 +198,15 @@ const Table = ({
   dense,
   rowsPerPageOptions,
   defaultSort,
-  toolbarComponent,
   metaRow,
   sortStateChanged,
   activeRow,
   onClick,
   pagination,
-  includeCsvDownload,
   includeCount,
   hideTable,
 }) => {
   const { t } = useTranslation();
-  const [csvData, setCsvData] = useState({});
   const {
     getTableProps,
     getTableBodyProps,
@@ -239,10 +232,6 @@ const Table = ({
     useSortBy,
     usePagination
   );
-
-  useEffect(() => {
-    setCsvData({ page, headers, pageSize: state.pageSize, setPageSize, rowsPerPageOptions, rawData: data });
-  }, [page, headers, state.pageSize, setPageSize]);
 
   const handleChangePage = (_, newPage) => gotoPage(newPage);
 
@@ -270,15 +259,8 @@ const Table = ({
 
   return (
     <Grid container spacing={1}>
-      {(title || subtitle || includeCsvDownload || includeCount) && (
-        <HeaderRowOutsideTable
-          title={title}
-          subtitle={subtitle}
-          includeCsvDownload={includeCsvDownload}
-          includeCount={includeCount}
-          csvData={csvData}
-          data={data}
-        />
+      {(title || subtitle || includeCount) && (
+        <HeaderRowOutsideTable title={title} subtitle={subtitle} includeCount={includeCount} data={data} />
       )}
 
       {!hideTable && (
@@ -334,7 +316,6 @@ Table.propTypes = {
   activeRow: PropTypes.string,
   onClick: PropTypes.func,
   pagination: PropTypes.bool,
-  includeCsvDownload: PropTypes.bool,
   includeCount: PropTypes.bool,
   hideTable: PropTypes.bool,
 };
@@ -350,7 +331,6 @@ Table.defaultProps = {
   activeRow: '',
   onClick: null,
   pagination: false,
-  includeCsvDownload: false,
   includeCount: false,
   hideTable: false,
 };

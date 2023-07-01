@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 // API_HOST from webpack define plugin
 import ApiError from './apiError';
-import { logout } from '../modules/auth';
 import { newError } from '/modules/errorHandler';
 
 const responseHandler = async (res) => {
@@ -12,20 +11,8 @@ const responseHandler = async (res) => {
     }
     const errorResponse = await res.json();
     console.error('Got error from backend:', errorResponse);
-    // Special case to cover the flow where you try filling out a person on the "New Case" modal and it already exists.
-    // In this case we don't want to show an error Toast but instead show a custom prompt in the form
-    // letting the user decide whether to keep old or new info.
-    // FIXME Maybe it's a little ugly to handle this error separately like this? (finnss May 2023)
-    if (
-      res?.status === 409 &&
-      errorResponse?.type === 'person_exists' &&
-      window.location.pathname.includes('persons')
-    ) {
-      throw new ApiError(res, errorResponse);
-    } else {
-      store.dispatch(newError(new ApiError(res, errorResponse)));
-      return;
-    }
+    store.dispatch(newError(new ApiError(res, errorResponse)));
+    return;
   }
 
   const contentType = res.headers.get('Content-Type');

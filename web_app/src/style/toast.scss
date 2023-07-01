@@ -15,28 +15,28 @@
   }
 
   .MuiAlert-filledSuccess {
-    background: linear-gradient(0deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), $alfa-green-light;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), $green-light;
 
     .MuiAlert-message,
     .MuiAlert-action {
-      color: $alfa-green-toast-text;
+      color: $green-toast-text;
     }
 
     .MuiAlert-icon {
-      color: $alfa-green-light;
+      color: $green-light;
     }
   }
 
   .MuiAlert-filledError {
-    background: linear-gradient(0deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)), $alfa-red-toast-bg;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)), $red-toast-bg;
 
     .MuiAlert-message,
     .MuiAlert-action {
-      color: $alfa-red-toast-text;
+      color: $red-toast-text;
     }
 
     .MuiAlert-icon {
-      color: $alfa-red-toast-bg;
+      color: $red-toast-bg;
     }
   }
 }

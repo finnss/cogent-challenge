@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import AppBar from './AppBar';
 import Footer from './Footer';
 import clsx from 'clsx';
-import Breadcrumbs from './Breadcrumbs';
 import Toast from '/components/Toast';
 import { clearError } from '/modules/errorHandler';
 import { dismissToast } from '/modules/toast';
@@ -19,16 +18,15 @@ import ErrorPage from '/routes/common/ErrorPage';
  * @param {{ className: string }}
  * @param {{ pageClassName: string }}
  * @param {{ contentClassName: string }}
- * @param {{ breadcrumbs: Array<import('/routes/common/GenerateRoutes').AlfaRoute> }}
  * @param {{ children: JSX.Element }}
  * @returns {JSX.Element} Container
  */
-const Container = ({ pageTitle, className, pageClassName, contentClassName, breadcrumbs, showErrorPage, children }) => {
+const Container = ({ pageTitle, className, pageClassName, contentClassName, showErrorPage, children }) => {
   const pageDivRef = useRef(null);
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const logoUrl = useSelector((state) => state.auth.theme.logo);
-  const title = useSelector((state) => state.auth.theme.title);
+  const logoUrl = useSelector((state) => state.theme.logo);
+  const title = useSelector((state) => state.theme.title);
   const errorStatusForPage = useSelector((state) => state.errors.errorStatusForPage);
   const toast = useSelector((state) => state.toast.toast);
 
@@ -62,7 +60,6 @@ const Container = ({ pageTitle, className, pageClassName, contentClassName, brea
     <div className={clsx('Container', className)}>
       <AppBar title={title} logoUrl={logoUrl} />
       <div className={clsx('Page', pageClassName)} ref={pageDivRef}>
-        <Breadcrumbs routes={breadcrumbs} />
         <div className={clsx('Content', contentClassName)}>{errorPage || children}</div>
         <Footer />
       </div>
@@ -76,7 +73,6 @@ Container.propTypes = {
   className: PropTypes.string,
   pageClassName: PropTypes.string,
   contentClassName: PropTypes.string,
-  breadcrumbs: PropTypes.any,
   showErrorPage: PropTypes.bool,
   children: PropTypes.any,
 };
