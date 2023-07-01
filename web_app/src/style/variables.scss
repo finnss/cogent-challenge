@@ -1,0 +1,77 @@
+@use 'sass:math';
+@import 'colors';
+
+$color-primary: $alfa-blue-dark-police;
+$color-interactive: $alfa-blue-interactive;
+$color-interactive-secondary: $alfa-yellow-main;
+$color-secondary: $alfa-grey-gunmetal;
+$color-error: $alfa-red-alert;
+$color-warning: $alfa-yellow-warning;
+$color-success: $alfa-valid-green;
+$background-default: #fff;
+$spacing: 8px;
+$border-radius: 4px;
+$appbar-height: 4rem;
+$appbar-zindex: 1200;
+$drawer-width: 15rem;
+$drawer-zindex: 1100;
+$page-maxwidth: 1536px;
+$page-maxwidth-small: 1000px;
+$announcement-height: 48px;
+
+$transition-easeInOut: cubic-bezier(0.4, 0, 0.2, 1);
+$transition-easeOut: cubic-bezier(0, 0, 0.2, 1);
+$transition-easeIn: cubic-bezier(0.4, 0, 1, 1);
+$transition-sharp: cubic-bezier(0.4, 0, 0.6, 1);
+
+$breakpoints: (
+  'xs': 0px,
+  'sm': 600px,
+  'md': 900px,
+  'lg': 1200px,
+  'xl': 1536px,
+) !default;
+
+@mixin breakpoint-up($breakpoint) {
+  @media only screen and (min-width: map-get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+@mixin breakpoint-down($breakpoint) {
+  @media only screen and (max-width: map-get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+@function spacing($factor) {
+  @return $spacing * $factor;
+}
+
+@mixin text-ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+:export {
+  colorPrimary: $color-primary;
+  colorInteractive: $color-interactive;
+  colorInteractiveSecondary: $color-interactive-secondary;
+  colorError: $color-error;
+  colorWarning: $color-warning;
+  colorSuccess: $color-success;
+  colorSecondary: $color-secondary;
+  backgroundDefault: $background-default;
+  spacing: math.div($spacing, 1px);
+  appbarHeight: $appbar-height;
+  appbarZIndex: $appbar-zindex;
+  drawerZIndex: $drawer-zindex;
+  transition-easeInOut: $transition-easeInOut;
+  transition-easeOut: $transition-easeOut;
+  transition-easeIn: $transition-easeIn;
+  transition-sharp: $transition-sharp;
+  pageMaxWidth: $page-maxwidth;
+  pageMaxWidthSmall: $page-maxwidth-small;
+  announcementHeight: $announcement-height;
+}

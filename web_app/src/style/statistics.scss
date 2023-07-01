@@ -1,0 +1,64 @@
+@import 'variables';
+@import 'colors';
+
+.Statistics {
+  .MuiTabs-root {
+    width: fit-content;
+    border: none !important;
+
+    .Tab {
+      padding: 0 50px;
+      margin-right: spacing(2);
+    }
+
+    .Tab {
+      border: none;
+      font-size: 1rem;
+    }
+
+    .Tab.Mui-selected {
+      border: inherit;
+    }
+  }
+
+  .KeyNumbers {
+    display: flex;
+    flex-direction: row;
+    padding-top: spacing(4);
+    padding-bottom: spacing(1);
+
+    .MuiTypography-root {
+      margin-right: spacing(5);
+    }
+  }
+
+  .NoResults {
+    max-width: 640px;
+    font-size: 1rem;
+  }
+
+  .MeasureFilters {
+    max-width: 1000px;
+    flex-wrap: wrap;
+    padding-top: spacing(3);
+    padding-bottom: spacing(1);
+
+    .MuiGrid-item {
+      padding-top: 0;
+      padding-bottom: spacing(2);
+    }
+  }
+
+  .ClearFilter {
+    padding: spacing(2) 0 0 spacing(3);
+
+    button {
+      text-transform: none;
+
+      &:disabled {
+        color: $alfa-grey-medium !important;
+        font-weight: 400;
+      }
+    }
+  }
+}

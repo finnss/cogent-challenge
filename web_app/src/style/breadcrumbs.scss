@@ -1,0 +1,38 @@
+@import 'variables';
+@import 'colors';
+
+$text-maxwidth: 60ch;
+
+.Breadcrumbs {
+  // color: $alfa-dark-primary;
+  // font-size: 14px;
+  // margin: 0 0 spacing(2);
+  z-index: 10;
+
+  .Active {
+    color: $alfa-dark-primary;
+  }
+
+  .Inactive {
+    color: $alfa-grey-cool !important;
+  }
+
+  &.MuiBreadcrumbs-root {
+    margin: spacing(1) 0 spacing(3) spacing(1);
+  }
+
+  .MuiBreadcrumbs-ol {
+    flex-wrap: nowrap;
+  }
+
+  .MuiBreadcrumbs-li {
+    min-width: 0;
+    max-width: $text-maxwidth;
+    @include text-ellipsis;
+  }
+
+  .MuiTypography-root {
+    max-width: $text-maxwidth;
+    @include text-ellipsis;
+  }
+}

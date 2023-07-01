@@ -1,0 +1,40 @@
+@import 'variables';
+@import 'colors';
+
+$borderStyle: 1px solid $alfa-grey-silver;
+
+.InfoCard {
+  width: fit-content;
+  margin-top: spacing(1);
+  // box-shadow: 2px 2px 2px 0px $other-stroke;
+  // Denne er hentet rettet fra Figma. Kanskje litt finnicky?
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 1px 3px rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  border: 1px solid $alfa-grey-light;
+  background-color: white;
+
+  .Row {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid $alfa-grey-light;
+    padding: 15px;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  .Key {
+    color: $alfa-grey-dark;
+    padding-right: spacing(4);
+  }
+
+  .Value {
+    text-align: right;
+  }
+
+  .Key,
+  .Value {
+    flex: 1;
+  }
+}

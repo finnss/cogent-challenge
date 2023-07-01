@@ -1,0 +1,23 @@
+@import 'variables';
+@import 'colors';
+
+.TabContainer {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+
+  .MuiTabs-root {
+    border-bottom: 1px solid color(grey, 400);
+
+    .MuiButtonBase-root {
+      &:hover {
+        color: $color-interactive;
+      }
+    }
+  }
+
+  .TabContainerPage {
+    height: 100%;
+    padding-top: spacing(2);
+  }
+}

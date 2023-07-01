@@ -1,0 +1,432 @@
+@import 'variables';
+@import 'colors';
+
+$page-padding: spacing(2);
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  height: 100vh !important;
+  width: 100vw !important;
+  font-size: 16px;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-weight: 400;
+  background-color: #fafafa;
+  overflow-wrap: break-word;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.loading * {
+  cursor: wait !important;
+}
+
+.MuiInputBase-root {
+  background-color: white;
+
+  input:disabled,
+  button:disabled,
+  .Mui-disabled {
+    background-color: $alfa-grey-silver-bg;
+    color: $alfa-text-main;
+    -webkit-text-fill-color: inherit;
+  }
+}
+
+.Mui-disabled {
+  background-color: $alfa-grey-silver-bg;
+  color: $alfa-text-main;
+  -webkit-text-fill-color: inherit;
+}
+
+.MuiFormControl-root.Mui-disabled,
+.MuiFormControlLabel-root.Mui-disabled,
+.MuiFormControlLabel-root .MuiFormControlLabel-label.Mui-disabled {
+  color: $alfa-text-main;
+}
+
+.MuiButtonBase-root.Mui-disabled,
+.MuiSvgIcon-root.Mui-disabled,
+.MuiInputLabel-formControl.Mui-disabled {
+  color: $other-stroke !important;
+}
+
+.MuiInputLabel-root,
+.MuiInputLabel-shrink.Mui-disabled {
+  background: none !important;
+  color: $alfa-grey-medium !important;
+}
+
+.MuiFormGroup-root .Mui-disabled,
+.MuiFormControl-root label.Mui-disabled {
+  background: none;
+}
+
+.CheckBox,
+.CheckBox .Mui-disabled {
+  background: none !important;
+}
+
+.MuiFormGroup-root label {
+  margin-bottom: -(spacing(1));
+}
+
+.MuiInputBase-root,
+.MuiInputBase-input,
+.MuiFormLabel-root,
+.MuiFormControlLabel-label {
+  font-size: 1rem;
+}
+
+.MuiFormLabel-root {
+  color: $alfa-text-main !important;
+}
+
+.MuiTypography-body2 {
+  font-size: 1rem;
+}
+
+.MuiCheckbox-root ~ .MuiTypography-root {
+  padding-top: 1px;
+}
+
+.MuiRadio-root ~ .MuiTypography-root {
+  padding-top: 2px;
+}
+
+.StandaloneLink {
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.WarningBubbleContainer {
+  height: fit-content;
+}
+
+.WarningBubble {
+  border: 1px solid $alfa-yellow-warning;
+  border-radius: spacing(4);
+  padding: spacing(1) spacing(2);
+  width: fit-content;
+  font-size: 1rem;
+}
+
+#main {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: $alfa-grey-silver-bg;
+}
+
+.MuiLink-root,
+a {
+  color: $alfa-blue-interactive;
+  text-decoration: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.MuiDialogTitle-root {
+  font-size: 1.75rem;
+}
+
+.ErrorMessage {
+  font-size: 14px;
+  margin-top: 2px;
+  color: red;
+}
+
+.WeakText {
+  color: $alfa-grey-medium;
+}
+
+.Italic {
+  font-style: italic;
+}
+
+.NoAsterisk {
+  .MuiFormLabel-asterisk {
+    display: none;
+  }
+}
+
+.TextPaddedTop {
+  margin-top: spacing(2);
+}
+
+.BlueBorder {
+  border: 1px solid $alfa-blue-menu-icon;
+  border-radius: 4px;
+}
+
+.MR {
+  margin-right: spacing(2);
+}
+
+.MuiTypography-h1,
+.MuiTypography-h2,
+.MuiTypography-h3,
+.MuiTypography-h4 {
+  font-weight: 500;
+}
+
+.MuiDivider-root {
+  border-bottom-width: medium;
+}
+
+.Container {
+  position: relative;
+  display: flex;
+  height: 100%;
+  width: 100%;
+
+  // App bar
+  .MuiAppBar-root {
+    position: absolute;
+    height: $appbar-height;
+    z-index: $appbar-zindex;
+    background-color: $alfa-dark-primary;
+
+    .MuiToolbar-root {
+      height: $appbar-height;
+      min-height: 0;
+    }
+
+    .Logo {
+      margin-left: spacing(2);
+      height: $appbar-height;
+      padding-top: spacing(1.5);
+      padding-bottom: spacing(1.5);
+      margin-right: spacing(1);
+      // FIXME We might need this again if we use a drawer?
+      // flex-basis: $drawer-width - 1.5rem;
+      object-fit: contain;
+      object-position: left center;
+      cursor: pointer;
+    }
+
+    .SlashIcon {
+      margin-right: spacing(2);
+    }
+
+    .Title {
+      margin-right: auto;
+    }
+
+    .DebugBar {
+      display: flex;
+      align-items: center;
+      max-width: 512px;
+      height: 100%;
+      flex-shrink: 1;
+      margin-left: spacing(4);
+      margin-right: spacing(4);
+      padding: spacing(1);
+
+      p {
+        color: inherit;
+        padding: 0;
+        margin: 0;
+      }
+    }
+
+    .SendFeedback {
+      width: 100%;
+      border: 0;
+      border-top: 1px solid black;
+      padding: spacing(1);
+    }
+  }
+
+  // Drawer
+  .MuiDrawer-root {
+    width: $drawer-width;
+    z-index: $drawer-zindex;
+    flex-shrink: 0;
+
+    .MuiPaper-root {
+      position: absolute;
+      width: $drawer-width;
+      z-index: $drawer-zindex;
+      margin-top: $appbar-height;
+      max-height: calc(100vh - #{$appbar-height});
+
+      &::-webkit-scrollbar {
+        width: 0px;
+      }
+    }
+
+    .MenuTitle {
+      padding-top: spacing(2);
+      padding-left: spacing(1);
+      padding-bottom: spacing(1);
+      font-weight: 500;
+    }
+  }
+
+  .Page {
+    margin-top: $appbar-height;
+    flex-grow: 1;
+    padding: $page-padding;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+  }
+
+  .Content {
+    margin: 0 spacing(6);
+  }
+
+  .Footer {
+    margin-top: auto;
+    padding-top: $page-padding;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .IconHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: spacing(3);
+
+    .MuiSvgIcon-root {
+      margin-right: spacing(2);
+      font-size: 34px;
+      color: $alfa-blue-dark;
+    }
+  }
+
+  .SubTitle {
+    font-size: 1rem;
+    color: $alfa-grey-dark;
+  }
+
+  .SpaceBetween {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+.ErrorPage {
+  width: 600px;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  align-self: center;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+}
+
+// Table style
+.MuiTable-root {
+  border-collapse: collapse;
+
+  .MuiTableCell-root {
+    border: 1px solid $alfa-grey-silver;
+  }
+}
+
+.LightButton {
+  border-radius: spacing(3);
+  background-color: $alfa-light-blue;
+  color: $alfa-text-main;
+  margin: spacing(1);
+  padding: spacing(1) spacing(2);
+  text-transform: capitalize;
+
+  .MuiButton-endIcon {
+    color: $alfa-grey-active;
+  }
+}
+
+// Modal style
+.MuiDialogActions-root {
+  padding: 1rem;
+
+  .MuiButton-root {
+    margin-left: 1rem;
+  }
+}
+
+.StatisticsButton {
+  background-color: $alfa-green-dark;
+  margin-right: spacing(2);
+}
+
+// Accordion style
+.MuiAccordionSummary-root {
+  background-color: $alfa-light-silver;
+}
+
+fieldset {
+  display: inherit;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+  padding-block-start: 0;
+  padding-inline-start: 0;
+  padding-inline-end: 0;
+  padding-block-end: 0;
+  min-inline-size: inherit;
+  border-width: 0;
+  border-style: none;
+  border-color: transparent;
+  border-image: none;
+}
+
+.SummaryButton {
+  text-decoration: underline;
+  text-transform: none;
+  color: $alfa-blue-interactive;
+}
+
+.UserButton {
+  background: transparent;
+
+  &:hover {
+    cursor: default;
+    background: transparent;
+  }
+}
+
+// A utility css class that keeps a component at 50% on large
+// screens then expands it up to 100% progressively as screen
+// size decreases
+.responsive-width {
+  width: 100%;
+
+  @include breakpoint-up('sm') {
+    width: 100%;
+  }
+
+  @include breakpoint-up('md') {
+    width: 80%;
+  }
+
+  @include breakpoint-up('lg') {
+    width: 60%;
+  }
+
+  @include breakpoint-up('xl') {
+    width: 50%;
+  }
+}

@@ -1,0 +1,6 @@
+{
+    "ENV": "utv",
+    "LOCALE_DEFAULT": "nb-NO",
+    "LOG_LEVEL": "trace"
+}
+

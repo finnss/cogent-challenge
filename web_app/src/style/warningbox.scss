@@ -1,0 +1,21 @@
+@import 'variables';
+@import 'colors';
+
+.WarningBox {
+  width: fit-content;
+  margin-top: spacing(1);
+
+  background-color: $alfa-yellow-bg;
+  border: 1px solid $alfa-yellow-border;
+  padding: spacing(1.5) spacing(2);
+
+  .ContentBody {
+    border: none;
+  }
+
+  ul {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: spacing(3);
+  }
+}

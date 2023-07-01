@@ -1,0 +1,40 @@
+@import 'variables';
+@import 'colors';
+
+.Card {
+  border-radius: 4px;
+
+  .CardTitle {
+    font-weight: 400;
+  }
+
+  .CardContent {
+    padding: spacing(1) spacing(2) spacing(1);
+
+    &.Compact {
+      overflow: hidden;
+
+      p {
+        @include text-ellipsis;
+      }
+    }
+  }
+
+  .CardActions {
+    display: flex;
+    padding: spacing(1);
+
+    .SecondaryActions {
+      margin-left: auto;
+    }
+
+    .ExpandBtn {
+      transition: transform 250ms ease-in;
+
+      &.IsExpanded {
+        transform: rotate(180deg);
+        transition: transform 250ms ease-out;
+      }
+    }
+  }
+}

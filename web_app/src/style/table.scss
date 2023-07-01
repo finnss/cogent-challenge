@@ -1,0 +1,141 @@
+@import 'variables';
+@import 'colors';
+
+.TableContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 0;
+  flex-grow: 1;
+
+  th {
+    background-color: white;
+    border: none;
+  }
+
+  // Inherit from row style (but not for header cells)
+  .MuiTableCell-root:not(.MuiTableCell-head) {
+    font-weight: inherit;
+    color: inherit;
+    background-color: inherit;
+    word-break: break-word;
+  }
+
+  .MuiTableBody-root:not(.RowSubcomponent) {
+    &.Mui-selected {
+      background-color: color(grey, 300);
+    }
+  }
+
+  > .MuiTablePagination-root {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .TableToolbar {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: spacing(2);
+    position: relative;
+    justify-content: center;
+
+    .FilterBtn {
+      flex-basis: 6rem;
+      margin-right: spacing(2);
+    }
+
+    .Search {
+      margin-right: auto;
+    }
+
+    .Actions {
+      margin-left: auto;
+      display: flex;
+
+      .MuiButtonBase-root {
+        margin-left: spacing(1);
+        transform-origin: top left;
+      }
+    }
+
+    .SelectedFilters {
+      flex-basis: 100%;
+      margin-top: spacing(1);
+    }
+
+    > .MuiTablePagination-root {
+      min-height: 0;
+      position: absolute;
+      align-self: center;
+
+      * {
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+        min-height: 0;
+      }
+    }
+  }
+
+  .ToolbarRoot {
+    padding-left: spacing(2);
+    padding-right: spacing(2);
+  }
+
+  .ToolbarTitle {
+    flex-grow: 1;
+  }
+
+  .MetaRowCell {
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .TableRowSelected {
+    background-color: grey;
+  }
+
+  .TableRowClick {
+    cursor: pointer;
+  }
+
+  .MuiTableCell-root {
+    border: none;
+  }
+
+  .MuiTableHead-root {
+    border-bottom: 1px solid $alfa-grey-silver;
+  }
+
+  .MuiTableRow-root {
+    border-bottom: 1px solid $alfa-grey-silver;
+    vertical-align: baseline;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  .TableRowClick:hover {
+    background-color: $alfa-green-bg;
+    cursor: pointer;
+  }
+
+  .TableArrowContainer {
+    display: table-cell;
+    height: 100%;
+    align-items: center;
+  }
+
+  .TableArrow {
+    opacity: 0;
+    margin-right: spacing(2);
+    margin-left: -(spacing(4));
+    font-size: 32px;
+    color: $alfa-green-dark;
+  }
+
+  .TableRow:hover .TableArrow {
+    opacity: 1;
+  }
+}

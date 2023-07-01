@@ -1,0 +1,62 @@
+{
+  "env": {
+    "shared-node-browser": true,
+    "es2022": true
+  },
+  "extends": ["plugin:jsdoc/recommended", "plugin:react/recommended", "plugin:react-hooks/recommended"],
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "requireConfigFile": false,
+    "ecmaVersion": 13,
+    "sourceType": "module",
+    "babelOptions": {
+      "presets": ["@babel/preset-react"]
+    }
+  },
+  "plugins": ["jsdoc", "react", "react-hooks", "@babel"],
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/resolver": {
+      "node": {
+        "paths": ["src"]
+      }
+    }
+  },
+  "globals": {
+    "React": true,
+    "JSX": true
+  },
+  "root": true,
+  "rules": {
+    "max-len": ["warn", 120],
+    "object-curly-spacing": ["warn", "always"],
+    // When using babel with react after v17, no longer
+    // needed to have React in scope (jsx transform)
+    "react/react-in-jsx-scope": "off",
+    // Getting false positives, so disable
+    "react/display-name": "off",
+    // Not needed
+    "react-hooks/exhaustive-deps": "off",
+    // Allow usage of this in class arrow functions
+    "no-invalid-this": "off",
+    // Causes issues with prettier
+    "indent": "off",
+    // Causes issues with prettier
+    "comma-dangle": "off",
+    // Causes issues with prettier
+    "space-before-function-paren": "off",
+    "@babel/no-invalid-this": "error",
+    "operator-linebreak": "off",
+    "jsdoc/require-jsdoc": "off",
+    "require-jsdoc": "off",
+    "valid-jsdoc": "off",
+    "jsdoc/newline-after-description": "off",
+    "jsodc/require-param-description": "off",
+    "jsdoc/require-param": "off"
+  }
+}

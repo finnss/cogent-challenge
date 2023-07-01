@@ -1,0 +1,27 @@
+@import 'variables';
+@import 'colors';
+
+.Persons {
+  max-width: $page-maxwidth-small;
+  padding-bottom: spacing(4);
+
+  .PersonSearch {
+    width: min(700px, 80vw);
+
+    .SearchResultContainer {
+      position: relative;
+
+      .SearchResults {
+        top: 0;
+        left: 25px;
+        position: absolute;
+      }
+    }
+  }
+}
+
+.UpdatePersonModal {
+  .MuiPaper-root {
+    max-width: 500px;
+  }
+}

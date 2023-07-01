@@ -1,0 +1,119 @@
+@import 'variables';
+@import 'colors';
+
+.Cases {
+  max-width: $page-maxwidth-small;
+  padding-bottom: spacing(4);
+
+  .CaseSearch {
+    width: min(700px, 80vw);
+
+    .SearchResultContainer {
+      position: relative;
+
+      .SearchResults {
+        top: 0;
+        left: 25px;
+        position: absolute;
+      }
+    }
+  }
+
+  .InfoCards {
+    max-width: 900px;
+    padding-top: 8px;
+  }
+
+  .InfoCard {
+    width: 100%;
+  }
+
+  .NoAssessments {
+    max-width: 640px;
+    font-size: 1rem;
+  }
+
+  .NoAssessmentsDesc {
+    margin-top: spacing(3);
+  }
+
+  .CaseTitleRow {
+    max-width: 870px;
+  }
+
+  .TimeSinceLastAssessmentContainer {
+    display: flex;
+    justify-content: flex-end;
+    height: fit-content;
+  }
+
+  .DistrictContainer,
+  .UnitContainer {
+    display: flex;
+    align-items: center;
+    transition: all 1s;
+    border-radius: spacing(3);
+    background-color: $alfa-light-blue;
+    color: $alfa-text-main;
+    margin: spacing(1);
+    padding: spacing(1) spacing(2);
+    height: 40px;
+  }
+
+  .DistrictContainer {
+    margin-left: 0;
+  }
+
+  .IsEditing {
+    padding: spacing(5) spacing(2) spacing(5) spacing(3);
+  }
+
+  .SelectNewDistrict,
+  .SelectNewUnit {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+  }
+
+  .SelectNewDistrict .MuiInputBase-root,
+  .SelectNewUnit .MuiInputBase-root {
+    width: 100%;
+    height: 50px;
+  }
+
+  .CancelButton {
+    color: $alfa-grey-medium;
+    margin-left: spacing(2);
+    font-size: 24px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .EditButton {
+    height: fit-content;
+    padding: 0;
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    color: $alfa-grey-medium;
+  }
+
+  .ContinueRiskAssessmentButton {
+    background-color: $alfa-yellow-warning;
+    color: $alfa-text-main;
+  }
+
+  .MissingGDU {
+    background-color: $alfa-red-medium;
+  }
+}
+
+.UpdateCaseModal {
+  .MuiPaper-root {
+    max-width: 500px;
+  }
+}

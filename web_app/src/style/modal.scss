@@ -1,0 +1,18 @@
+@import 'variables';
+@import 'colors';
+
+.Modal {
+  .MuiPaper-root {
+    background-color: $alfa-grey-almost-light;
+  }
+}
+
+.ConfirmModal {
+  .MuiPaper-root {
+    max-width: 450px;
+  }
+
+  .MuiDialogTitle-root {
+    font-size: 1rem;
+  }
+}

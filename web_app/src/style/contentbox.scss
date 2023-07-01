@@ -1,0 +1,44 @@
+@import 'variables';
+@import 'colors';
+
+$borderStyle: 1px solid $alfa-grey-silver;
+
+.ContentBox {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+
+  .ContentTitle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $alfa-light-silver;
+    padding: spacing(1);
+
+    border-top: $borderStyle;
+    border-left: $borderStyle;
+    border-right: $borderStyle;
+
+    .MuiTypography-root {
+      font-weight: 500;
+    }
+  }
+
+  .ContentBody {
+    padding: spacing(3);
+    flex-grow: 1;
+
+    border-left: $borderStyle;
+    border-right: $borderStyle;
+    border-bottom: $borderStyle;
+    border-radius: spacing(0.5);
+
+    &.NoBorder {
+      border: 0;
+    }
+
+    &.NoPadding {
+      padding: 0;
+    }
+  }
+}
