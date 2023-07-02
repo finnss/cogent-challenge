@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Button, Grid, IconButton, Tooltip, Typography } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -10,7 +11,7 @@ import dayjs from 'dayjs';
 
 import NoImg from '../assets/no_img.png';
 import Table from './table/Table';
-import '../style/home.scss';
+import '../style/jobstable.scss';
 
 const JobsTable = ({ jobs }) => {
   const { t } = useTranslation();
@@ -41,7 +42,7 @@ const JobsTable = ({ jobs }) => {
         Cell: ({ cell }) => <Typography variant='body2'>{cell.value}</Typography>,
       },
       {
-        Header: t('common.actions.actions'),
+        Header: t('common.strings.actions'),
         Cell: ({ cell }) => {
           const onEditClick = () => this.handleEdit(cell.row.original);
           const onDeleteClick = () => this.handleDelete(cell.row.original);
@@ -78,7 +79,7 @@ const JobsTable = ({ jobs }) => {
   ));
 
   return (
-    <Grid item xs={12}>
+    <Grid item xs={12} className='JobsTable'>
       <Table
         title={t('routes.home.jobs')}
         subtitle={t('routes.home.jobs_description')}

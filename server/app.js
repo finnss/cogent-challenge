@@ -25,7 +25,7 @@ app.use(express.static(__dirname + '/public'));
 
 app.use(
   session({
-    secret: 'conduit',
+    secret: 'cogent',
     cookie: { maxAge: 60000 },
     resave: false,
     saveUninitialized: false,
@@ -39,7 +39,7 @@ if (!isProduction) {
 if (isProduction) {
   mongoose.connect(process.env.MONGODB_URI);
 } else {
-  mongoose.connect('mongodb://localhost/conduit');
+  mongoose.connect('mongodb://localhost/cogent');
   mongoose.set('debug', true);
 }
 
@@ -48,6 +48,8 @@ require('./models/Image');
 require('./models/Job');
 
 app.use(require('./routes'));
+
+require('./redis');
 
 /// catch 404 and forward to error handler
 app.use(function (req, res, next) {

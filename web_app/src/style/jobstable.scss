@@ -1,0 +1,11 @@
+@import 'variables';
+@import 'colors';
+
+.JobsTable > .MuiGrid-container {
+  // max-width: 1000px;
+  margin: 0 auto;
+
+  .MuiTableCell-root {
+    vertical-align: middle;
+  }
+}

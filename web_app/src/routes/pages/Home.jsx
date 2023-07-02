@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Button, Grid, Typography } from '@mui/material';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -8,10 +9,11 @@ import { useExitPagePrompt } from '/util';
 import Container from '/components/Container';
 import Loading from '/components/common/Loading';
 import { showToast } from '/modules/toast';
-import { getJobs } from '/modules/jobs';
+import { getJob, getJobs } from '/modules/jobs';
 import { uploadImage } from '/modules/images';
 import JobsTable from '/components/JobsTable';
 import '../../style/home.scss';
+import Link from '/components/common/Link';
 
 const Home = () => {
   const { t } = useTranslation();
@@ -19,7 +21,9 @@ const Home = () => {
   const navigate = useNavigate();
 
   const jobs = useSelector((state) => state.jobs.jobs);
+  console.log('jobs', jobs);
   const isLoading = useSelector((state) => state.jobs.loading);
+  const [jobForUploadedImage, setJobForUploadedImage] = useState();
 
   useExitPagePrompt(t('routes.home.confirm_navigation'), false);
 
@@ -43,7 +47,11 @@ const Home = () => {
     console.log('data.get(image)', data.get('image'));
     const uploadedImage = await dispatch(uploadImage(data, true));
     if (uploadedImage) {
+      console.log('uploadedImage', uploadedImage);
       dispatch(showToast(t('routes.home.upload_successful')));
+      const job = await dispatch(getJob(uploadedImage.jobId));
+      console.log('job', job);
+      setJobForUploadedImage(job);
     }
   };
 
@@ -63,7 +71,7 @@ const Home = () => {
       <Grid className='HomePage'>
         <Grid container className='OuterGridContainer'>
           <Grid item container xs={12} direction='row' className='GridContainer' spacing={5}>
-            <Grid item xs={12} marginBottom={3}>
+            <Grid item xs={12} marginBottom={3} style={{ maxWidth: '800px' }}>
               <Typography variant='h5' className='MainTitle'>
                 {t('routes.home.title')}
               </Typography>
@@ -82,9 +90,25 @@ const Home = () => {
                   multiple={false}
                 />
               </Button>
+
+              <Grid item xs={12} className='LinkToJobs' marginTop={2}>
+                <Link to='/jobs'>
+                  See all emojis <ArrowRightIcon style={{ marginBottom: '-5px' }} />
+                </Link>
+              </Grid>
             </Grid>
 
-            {jobs?.length > 0 && <JobsTable jobs={jobs} />}
+            {jobForUploadedImage && (
+              <Grid item container xs={12} spacing={1} style={{ maxWidth: '1000px' }}>
+                <JobsTable jobs={[jobForUploadedImage]} />
+
+                <Grid item xs={12} className='LinkToJobs'>
+                  <Link to='/jobs'>
+                    See all jobs <ArrowRightIcon style={{ marginBottom: '-5px' }} />
+                  </Link>
+                </Grid>
+              </Grid>
+            )}
           </Grid>
         </Grid>
       </Grid>

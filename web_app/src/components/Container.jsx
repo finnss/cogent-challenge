@@ -9,6 +9,7 @@ import Toast from '/components/Toast';
 import { clearError } from '/modules/errorHandler';
 import { dismissToast } from '/modules/toast';
 import ErrorPage from '/routes/common/ErrorPage';
+import Breadcrumbs from '/components/Breadcrumbs';
 
 /**
  * Container component that wraps a page
@@ -21,7 +22,7 @@ import ErrorPage from '/routes/common/ErrorPage';
  * @param {{ children: JSX.Element }}
  * @returns {JSX.Element} Container
  */
-const Container = ({ pageTitle, className, pageClassName, contentClassName, showErrorPage, children }) => {
+const Container = ({ pageTitle, className, pageClassName, contentClassName, breadcrumbs, showErrorPage, children }) => {
   const pageDivRef = useRef(null);
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -60,6 +61,8 @@ const Container = ({ pageTitle, className, pageClassName, contentClassName, show
     <div className={clsx('Container', className)}>
       <AppBar title={title} logoUrl={logoUrl} />
       <div className={clsx('Page', pageClassName)} ref={pageDivRef}>
+        <Breadcrumbs routes={breadcrumbs} />
+
         <div className={clsx('Content', contentClassName)}>{errorPage || children}</div>
         <Footer />
       </div>
@@ -72,6 +75,7 @@ Container.propTypes = {
   pageTitle: PropTypes.string,
   className: PropTypes.string,
   pageClassName: PropTypes.string,
+  breadcrumbs: PropTypes.any,
   contentClassName: PropTypes.string,
   showErrorPage: PropTypes.bool,
   children: PropTypes.any,

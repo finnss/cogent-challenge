@@ -153,7 +153,7 @@ const HeaderRowOutsideTable = ({ title, subtitle, includeCount, data }) => {
   return (
     <Grid item xs={12} className='SpaceBetween HeaderRowOutsideTable'>
       {title ? (
-        <Grid item container flexDirection='column' spacing={1} style={{ marginLeft: 0 }}>
+        <Grid item container flexDirection='column' spacing={1} style={{ marginLeft: 0, textAlign: 'left' }}>
           <Typography variant='h6'>{title}</Typography>
           {subtitle &&
             (typeof subtitle === 'string' ? (

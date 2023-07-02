@@ -4,7 +4,7 @@ var Image = mongoose.model('Image');
 var multer = require('multer');
 var fs = require('fs');
 const path = require('path');
-const { startGenerateThumbnailJob } = require('./jobs');
+const startGenerateThumbnailJob = require('../../redis/producer');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -24,6 +24,7 @@ router.param('image', function (req, res, next, id) {
       if (!image) {
         return res.sendStatus(404);
       }
+      console.log('preload thing for image', image);
 
       req.image = image;
 
@@ -58,15 +59,17 @@ router.post('/', upload.single('image'), (req, res, next) => {
     contentType: req.file.mimetype,
     size: req.file.size,
   };
-  Image.create(obj).then((err, item) => {
-    if (err) {
-      console.log(err);
-    } else {
+  console.log('beofre image.create');
+  Image.create(obj)
+    .then(async (item) => {
+      console.log('immage created! Starting generate thumbnail job...');
       // On successful image creation, we create a long-running job to generate a thumbnail.
-      startGenerateThumbnailJob(item);
-      return 201;
-    }
-  });
+      const job = await startGenerateThumbnailJob(item);
+      res.status(201).json({ jobId: job._id });
+    })
+    .catch((err) => {
+      console.log('Error creating image:', err);
+    });
 });
 
 module.exports = router;

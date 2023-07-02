@@ -20,7 +20,8 @@ export const getJobs =
   (doInBackground = false) =>
   async (dispatch) => {
     dispatch({ type: GET_JOBS_BEGIN, doInBackground });
-    const jobs = await API.jobs.getJobs()?.jobs;
+    const jobs = (await API.jobs.getJobs())?.jobs;
+    console.log('module jobs', jobs);
     dispatch({ type: GET_JOBS_SUCCESS, jobs });
     return jobs;
   };
