@@ -11,10 +11,20 @@
   height: fit-content;
   text-align: center;
 
+  .MainTitle {
+    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: 2px;
+    margin-bottom: spacing(3);
+    font-size: 1.5rem;
+  }
+
   .UploadButton {
     margin-top: spacing(3);
     width: 100%;
+    font-weight: 400;
     border: 3px solid $blue-dark-button;
+    color: $dark-primary;
     background-color: transparent;
     border-radius: spacing(1);
     font-size: 1.25rem;
@@ -24,6 +34,8 @@
     &:hover {
       background-color: $blue-menu-icon;
       color: white;
+      border-color: $blue-menu-icon;
+      box-shadow: none;
     }
   }
 }

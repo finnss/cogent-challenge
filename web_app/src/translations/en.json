@@ -76,6 +76,7 @@
     "forbidden": "You do not have permission to see this content.",
     "failed": "Failed",
     "missing_password": "Password is mandatory",
+    "upload_start": "Something went wrong while trying to upload your image..",
 
     "backend": {
       "internal_server_error": "The server encountered an unexpected error while handling your request. Please try again later or contact support.",
@@ -102,7 +103,8 @@
   },
   "routes": {
     "home": {
-      "title": "Cogent Labs Image upload service",
+      "page_title": "Home",
+      "title": "✨ Cogent Labs Emoji upload service ✨",
       "upload": "Upload image!",
       "jobs": "Jobs",
       "jobs_description": "This is a list of jobs to handle the images you have uploaded.",
@@ -112,7 +114,9 @@
       "job_id": "Job ID",
       "thumbnail": "Thumbnail",
       "percentage_complete": "% complete",
-      "file_location": "File location"
+      "file_location": "File location",
+      "upload_started": "Upload started",
+      "upload_successful": "Upload successful!"
     },
 
     "image": {

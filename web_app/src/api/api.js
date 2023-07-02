@@ -37,39 +37,33 @@ const connectionErrorHandler = async (err) => {
 // API_HOST from webpack define plugin
 const API = {
   GET: (path) =>
-    window
-      .fetch(`${API_HOST}/${path}`, { method: 'GET', credentials: 'include' })
-      .then(responseHandler)
-      .catch(connectionErrorHandler),
-  POST: (path, body) =>
+    window.fetch(`${API_HOST}/${path}`, { method: 'GET' }).then(responseHandler).catch(connectionErrorHandler),
+  POST: (path, options) =>
     window
       .fetch(`${API_HOST}/${path}`, {
         method: 'POST',
-        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(body),
+        body: JSON.stringify(options?.body),
+        ...options,
       })
       .then(responseHandler)
       .catch(connectionErrorHandler),
-  PATCH: (path, body) =>
+  PATCH: (path, options) =>
     window
       .fetch(`${API_HOST}/${path}`, {
         method: 'PATCH',
-        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(body),
+        ...options,
       })
       .then(responseHandler)
       .catch(connectionErrorHandler),
   DELETE: (path) =>
-    window
-      .fetch(`${API_HOST}/${path}`, { method: 'DELETE', credentials: 'include' })
-      .then(responseHandler)
-      .catch(connectionErrorHandler),
+    window.fetch(`${API_HOST}/${path}`, { method: 'DELETE' }).then(responseHandler).catch(connectionErrorHandler),
 };
 
 export default API;

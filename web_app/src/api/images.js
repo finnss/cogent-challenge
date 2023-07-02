@@ -4,8 +4,13 @@ export const getImages = () => API.GET('images');
 
 export const getImage = (id) => API.GET(`images/${id}`);
 
-export const addImage = (image) => {
-  return API.POST('images', image);
+export const uploadImage = (image) => {
+  console.log('uploadImage image', image);
+  return API.POST('images', {
+    // headers: { 'Content-Type': 'multipart/form-data' },
+    headers: {},
+    body: image,
+  });
 };
 
 export const updateImage = (image) => {

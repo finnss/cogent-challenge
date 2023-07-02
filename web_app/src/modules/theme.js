@@ -1,4 +1,4 @@
-import * as themes from '/style/themes';
+import * as themes from '../style/themes';
 
 const SET_THEME = 'SET_THEME';
 

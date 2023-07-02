@@ -4,8 +4,8 @@ const GET_IMAGES_BEGIN = 'GET_IMAGES_BEGIN';
 const GET_IMAGES_SUCCESS = 'GET_IMAGES_SUCCESS';
 const GET_IMAGE_BEGIN = 'GET_IMAGE_BEGIN';
 const GET_IMAGE_SUCCESS = 'GET_IMAGE_SUCCESS';
-const ADD_IMAGE_BEGIN = 'ADD_IMAGE_BEGIN';
-const ADD_IMAGE_SUCCESS = 'ADD_IMAGE_SUCCESS';
+const UPLOAD_IMAGE_BEGIN = 'UPLOAD_IMAGE_BEGIN';
+const UPLOAD_IMAGE_SUCCESS = 'UPLOAD_IMAGE_SUCCESS';
 const UPDATE_IMAGE_BEGIN = 'UPDATE_IMAGE_BEGIN';
 const UPDATE_IMAGE_SUCCESS = 'UPDATE_IMAGE_BEGIN';
 const DELETE_IMAGE_BEGIN = 'DELETE_IMAGE_BEGIN';
@@ -34,12 +34,12 @@ export const getImage =
     return image;
   };
 
-export const addImage =
+export const uploadImage =
   (newImage, doInBackground = false) =>
   async (dispatch) => {
-    dispatch({ type: ADD_IMAGE_BEGIN, doInBackground });
-    const image = await API.images.addImage(newImage);
-    dispatch({ type: ADD_IMAGE_SUCCESS, image });
+    dispatch({ type: UPLOAD_IMAGE_BEGIN, doInBackground });
+    const image = await API.images.uploadImage(newImage);
+    dispatch({ type: UPLOAD_IMAGE_SUCCESS, image });
     return image;
   };
 
@@ -64,7 +64,7 @@ export const deleteImage =
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case GET_IMAGE_BEGIN:
-    case ADD_IMAGE_BEGIN:
+    case UPLOAD_IMAGE_BEGIN:
     case UPDATE_IMAGE_BEGIN:
     case GET_IMAGES_BEGIN:
     case DELETE_IMAGE_BEGIN:
@@ -90,7 +90,7 @@ export default function reducer(state = initialState, action) {
         loading: false,
       };
 
-    case ADD_IMAGE_SUCCESS:
+    case UPLOAD_IMAGE_SUCCESS:
       return {
         ...state,
         images: [...state.images, action.image],

@@ -16,7 +16,9 @@ const AppBar = ({ title, logoUrl }) => {
     <>
       <MuiAppBar>
         <Toolbar disableGutters>
-          <img className='Logo' src={logoUrl} onClick={goHome} />
+          <div className='LogoContainer'>
+            <img className='Logo' src={logoUrl} onClick={goHome} />
+          </div>
           <Typography className='Title' variant='h6'>
             {title}
           </Typography>

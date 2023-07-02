@@ -4,7 +4,7 @@ const initialState = {
   toast: { open: false },
 };
 
-export const showToast = (message, duration, variant = 'success') => ({
+export const showToast = (message, duration = 5000, variant = 'success') => ({
   type: SHOW_TOAST,
   toast: { message, duration, variant, open: true },
 });

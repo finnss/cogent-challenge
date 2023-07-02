@@ -25,8 +25,8 @@ const Container = ({ pageTitle, className, pageClassName, contentClassName, show
   const pageDivRef = useRef(null);
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const logoUrl = useSelector((state) => state.theme.logo);
-  const title = useSelector((state) => state.theme.title);
+  const logoUrl = useSelector((state) => state.theme.theme.logo);
+  const title = useSelector((state) => state.theme.theme.title);
   const errorStatusForPage = useSelector((state) => state.errors.errorStatusForPage);
   const toast = useSelector((state) => state.toast.toast);
 

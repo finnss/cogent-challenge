@@ -210,17 +210,20 @@ a {
       min-height: 0;
     }
 
-    .Logo {
-      margin-left: spacing(2);
-      height: $appbar-height;
+    .LogoContainer {
       padding-top: spacing(1.5);
       padding-bottom: spacing(1.5);
-      margin-right: spacing(1);
-      // FIXME We might need this again if we use a drawer?
-      // flex-basis: $drawer-width - 1.5rem;
+    }
+
+    .Logo {
+      height: $appbar-height;
+      padding: spacing(1);
+      margin-right: spacing(2);
+      margin-top: 5px;
       object-fit: contain;
       object-position: left center;
       cursor: pointer;
+      background: white;
     }
 
     .Title {
