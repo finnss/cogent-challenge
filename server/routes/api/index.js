@@ -1,4 +1,4 @@
-var router = require('express').Router();
+const router = require('express').Router();
 
 router.use('/images', require('./images'));
 router.use('/jobs', require('./jobs').router);

@@ -1,17 +1,17 @@
-var mongoose = require('mongoose');
-var Job = mongoose.model('Job');
-var Bull = require('bull');
+const mongoose = require('mongoose');
+const Job = mongoose.model('Job');
+const Bull = require('bull');
 const JOB_STATUSES = require('../models/Job');
-var Image = mongoose.model('Image');
+const Image = mongoose.model('Image');
 
 const startGenerateThumbnailJob = async (image) => {
   const thumbnailGenerationQueue = new Bull('thumbnail-generation');
-  console.log('startGenerateThumbnailJob image.filename', image.filename);
+  console.log('\nstartGenerateThumbnailJob image.filename', image.filename);
   console.log('typeof image', typeof image);
   console.log('image.toJSONFor', image.toJSONFor);
   console.log('image[0]', image[0]);
 
-  var job = new Job();
+  const job = new Job();
   job.image = image;
   // job.queueId = redisJob.id;
   job.status = JOB_STATUSES.PENDING;

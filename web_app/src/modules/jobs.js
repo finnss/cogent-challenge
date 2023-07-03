@@ -30,7 +30,8 @@ export const getJob =
   (id, doInBackground = false) =>
   async (dispatch) => {
     dispatch({ type: GET_JOB_BEGIN, doInBackground });
-    const job = await API.jobs.getJob(id);
+    const job = (await API.jobs.getJob(id))?.job;
+    console.log('job in reducer', job);
     dispatch({ type: GET_JOB_SUCCESS, job });
     return job;
   };

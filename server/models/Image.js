@@ -1,14 +1,14 @@
-var mongoose = require('mongoose');
-// var nanoid = require('nanoid');
-var uniqueValidator = require('mongoose-unique-validator');
-var Thumbnail = mongoose.model('Thumbnail');
+const mongoose = require('mongoose');
+// const nanoid = require('nanoid');
+const uniqueValidator = require('mongoose-unique-validator');
+const Thumbnail = mongoose.model('Thumbnail');
 
-var ImageSchema = new mongoose.Schema(
+const ImageSchema = new mongoose.Schema(
   {
-    data: Buffer,
+    // data: Buffer,
+    path: String,
     filename: { type: String, unique: true },
     originalName: String,
-    path: String,
     contentType: String,
     size: Number,
     // job: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Job' }],
@@ -20,10 +20,10 @@ var ImageSchema = new mongoose.Schema(
 ImageSchema.methods.toDetailedJSON = async () => {
   const thumbnail = await Thumbnail.find({ 'image.filename': this.filename }).exec();
   return {
-    data: this.data,
+    // data: this.data,
+    path: this.path,
     filename: this.filename,
     originalName: this.originalName,
-    path: this.path,
     size: this.size,
     contentType: this.contentType,
     createdAt: this.createdAt,
@@ -34,8 +34,9 @@ ImageSchema.methods.toDetailedJSON = async () => {
 
 ImageSchema.methods.toJSONFor = function (job) {
   return {
+    path: this.path,
     filename: this.filename,
-    size: this.data?.length || 0,
+    size: this.size,
     contentType: this.contentType,
     createdAt: this.createdAt,
     // job: this.job,

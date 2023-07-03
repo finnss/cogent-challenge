@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 const JOB_STATUSES = {
   PENDING: 'pending',
@@ -7,18 +7,16 @@ const JOB_STATUSES = {
   FAILURE: 'failure',
 };
 
-var JobSchema = new mongoose.Schema(
+const JobSchema = new mongoose.Schema(
   {
     image: { type: mongoose.Schema.Types.ObjectId, ref: 'Image' },
     thumbnail: { type: mongoose.Schema.Types.ObjectId, ref: 'Thumbnail' },
-    // queueId: String,
     status: String,
   },
   { timestamps: true }
 );
 
 JobSchema.methods.toJSON = function () {
-  console.log('JobSchema.methods.toJSON this.image.toJSONFor', this.thumbnail, this.thumbnail?.toJSONFor);
   return {
     id: this._id,
     status: this.status,

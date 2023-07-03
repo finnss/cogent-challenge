@@ -25,6 +25,7 @@ const Home = () => {
   const jobs = useSelector((state) => state.jobs.jobs);
   // console.log('jobs', jobs);
   const isLoading = useSelector((state) => state.jobs.loading);
+  const [pollJobId, setPollJobId] = useState();
   const [jobForUploadedImage, setJobForUploadedImage] = useState();
 
   useExitPagePrompt(t('routes.home.confirm_navigation'), false);
@@ -33,24 +34,23 @@ const Home = () => {
     dispatch(getJobs());
   }, []);
 
-  // Poll the job every 3 seconds until it's done
+  // Poll the job every 1 seconds until it's done
   useEffect(() => {
     console.log('outside poll. jobForUploadedImage', jobForUploadedImage);
-    if (jobForUploadedImage?.id) {
-      const id = setInterval(async () => {
+    const id = setInterval(async () => {
+      if (pollJobId) {
         console.log('in poll. jobForUploadedImage', jobForUploadedImage);
-        if (jobForUploadedImage?.id) {
-          const { job } = await dispatch(getJob(jobForUploadedImage.id, true));
-          console.log('job', job);
-          setJobForUploadedImage(job);
-          if (jobForUploadedImage.status === 'complete') clearInterval(id);
-        } else {
-          clearInterval(id);
-        }
-      }, 1000 * 3);
-      return () => clearInterval(id);
-    }
-  }, [jobForUploadedImage]);
+
+        const job = await dispatch(getJob(pollJobId, true));
+        console.log('job', job);
+        setJobForUploadedImage(job);
+        if (job?.status === 'complete') clearInterval(id);
+      } else {
+        clearInterval(id);
+      }
+    }, 1000 * 1);
+    return () => clearInterval(id);
+  }, [pollJobId]);
 
   const onUploadImage = async (e) => {
     const file = e?.target?.files?.length > 0 ? e.target.files[0] : null;
@@ -70,10 +70,11 @@ const Home = () => {
     if (jobId) {
       console.log('jobId', jobId);
       dispatch(showToast(t('routes.home.upload_successful')));
-      const { job } = await dispatch(getJob(jobId, true));
+      const job = await dispatch(getJob(jobId, true));
       console.log('job', job);
       if (job) {
         setJobForUploadedImage(job);
+        setPollJobId(job.id);
       }
     }
   };
@@ -94,28 +95,37 @@ const Home = () => {
       <Grid className='HomePage'>
         <Grid container className='OuterGridContainer'>
           <Grid item container xs={12} direction='row' className='GridContainer' spacing={5}>
-            <Grid item xs={12} marginBottom={3} style={{ maxWidth: '800px' }}>
-              <Typography variant='h5' className='MainTitle'>
-                {t('routes.home.title')}
-              </Typography>
+            <Grid item xs={12} marginBottom={3} container spacing={3} flexDirection='column'>
+              <Grid item xs={12} className='Centered' style={{ maxWidth: '800px' }} flexDirection='column'>
+                <Typography variant='h5' className='MainTitle'>
+                  {t('routes.home.title')}
+                </Typography>
 
-              <Button variant='contained' className='UploadButton' component='label'>
-                {t('routes.home.upload')}
-                <input
-                  type='file'
-                  accept='image/*'
-                  hidden
-                  encType='multipart/form-data'
-                  onChange={onUploadImage}
-                  onClick={(event) => {
-                    event.target.value = null;
-                  }}
-                  multiple={false}
-                />
-              </Button>
+                <Button variant='contained' className='UploadButton' component='label'>
+                  {t('routes.home.upload')}
+                  <input
+                    type='file'
+                    accept='image/*'
+                    hidden
+                    encType='multipart/form-data'
+                    onChange={onUploadImage}
+                    onClick={(event) => {
+                      event.target.value = null;
+                    }}
+                    multiple={false}
+                  />
+                </Button>
+              </Grid>
 
               {jobForUploadedImage ? (
-                <Grid item container xs={12} spacing={1} style={{ maxWidth: '1000px' }} marginTop={5}>
+                <Grid
+                  item
+                  container
+                  xs={12}
+                  spacing={1}
+                  className='Centered'
+                  style={{ maxWidth: '1000px' }}
+                  marginTop={5}>
                   <JobsTable
                     jobs={[jobForUploadedImage]}
                     title={t('routes.home.jobs_title')}
@@ -130,7 +140,7 @@ const Home = () => {
                   </Grid>
                 </Grid>
               ) : (
-                <Grid item xs={12} className='LinkToJobs' marginTop={3}>
+                <Grid item xs={12} className='Centered LinkToJobs' marginTop={3} style={{ maxWidth: '800px' }}>
                   <Link to='/jobs'>
                     See all emojis <ArrowRightIcon style={{ marginBottom: '-5px' }} />
                   </Link>

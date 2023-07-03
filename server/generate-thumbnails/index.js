@@ -1,6 +1,6 @@
-var Bull = require('bull');
-var listener = require('./listener');
-var consumer = require('./consumer');
+const Bull = require('bull');
+const listener = require('./listener');
+const consumer = require('./consumer');
 
 /**
  * In order to generate thumbnails using long-running jobs, we use a queue implemented using redis and Bull.

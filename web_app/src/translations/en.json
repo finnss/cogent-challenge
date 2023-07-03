@@ -9,6 +9,8 @@
       "delete": "Delete",
       "yes": "Yes",
       "no": "No",
+      "download": "Download",
+      "view": "View",
       "never": "Never",
       "search": "Search",
       "logout": "Log out",
@@ -107,6 +109,8 @@
       "page_title": "Home",
       "title": "✨ Cogent Labs Emoji upload service ✨",
       "upload": "Upload image!",
+      "upload_started": "Upload started",
+      "upload_successful": "Upload successful!",
 
       "jobs_title": "Your new emoji",
       "jobs_subtitle": "It might take a second to process your image into an emoji. Hold on!"
@@ -129,8 +133,6 @@
       "started_at": "Job started",
       "percentage_complete": "% complete",
       "file_location": "File location",
-      "upload_started": "Upload started",
-      "upload_successful": "Upload successful!",
 
       "pending": "Pending",
       "processing": "Processing",

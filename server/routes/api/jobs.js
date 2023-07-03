@@ -1,66 +1,15 @@
-var router = require('express').Router();
-var mongoose = require('mongoose');
-var Job = mongoose.model('Job');
-var Image = mongoose.model('Image');
-var Thumbnail = mongoose.model('Thumbnail');
-var Bull = require('bull');
-
-// const thumbnailGenerationQueue = new Bull('thumbnail-generation');
-
-// const startGenerateThumbnailJob = async (image) => {
-//   console.log('startGenerateThumbnailJob image.filename', image.filename);
-
-//   const redisJob = await thumbnailGenerationQueue.add({ image });
-//   console.log('redisJob', redisJob);
-//   console.log('redisJob.toKey()', redisJob.toKey());
-
-//   var job = new Job();
-//   job.image = image;
-//   job.queueId = redisJob.id;
-//   console.log('job', job);
-
-//   job.save();
-// };
-
-// thumbnailGenerationQueue.process(async function (job) {
-//   console.log('thumbnailGenerationQueue! job.id', job.id, 'job.data', job.data);
-
-//   // longRunningFunction(job.data.imageURL);
-
-//   return { imageURL: job.data.imageURL, result: 'OK' };
-// });
-
-// thumbnailGenerationQueue.on('global:completed', async (job, result) => {
-//   console.log('Job Completed: ', job?.id, 'Result: ', result);
-
-//   const thumbnail = await Thumbnail();
-//   await thumbnail.save();
-
-//   const forJob = Job.findOne({ 'image.id': job.image?.id });
-//   forJob.thumbnail = thumbnail;
-//   await forJob.save();
-// });
-
-router.param('job', function (req, res, next, slug) {
-  Job.findOne({ slug: slug })
-    .populate('image')
-    .populate('thumbnail')
-    .then(function (job) {
-      if (!job) {
-        return res.sendStatus(404);
-      }
-
-      req.job = job;
-
-      return next();
-    })
-    .catch(next);
-});
+const router = require('express').Router();
+const mongoose = require('mongoose');
+const Image = mongoose.model('Image');
+const Job = mongoose.model('Job');
+const fs = require('fs');
 
 router.get('/', function (req, res, next) {
-  var query = {};
-  var limit = 20;
-  var offset = 0;
+  const query = {};
+  // Limit and offset used for pagination. Currently effectively disabled by default using 9999 as the
+  // max number of jobs to return. This is a natural point of potential future improvement.
+  let limit = 9999;
+  let offset = 0;
 
   if (typeof req.query.limit !== 'undefined') {
     limit = req.query.limit;
@@ -84,8 +33,8 @@ router.get('/', function (req, res, next) {
       .exec(),
     Job.count(query).exec(),
   ]).then(function (results) {
-    var jobs = results[0];
-    var jobsCount = results[1];
+    const jobs = results[0];
+    const jobsCount = results[1];
     console.log('jobsCount', jobsCount);
 
     return res.json({
@@ -115,20 +64,35 @@ router.get('/:id', function (req, res, next) {
 });
 
 // delete job and associated thumbnail / image
-router.delete('/:job', function (req, res, next) {
-  User.findById(req.payload.id)
-    .then(function (user) {
-      if (!user) {
+router.delete('/:id', function (req, res, next) {
+  Job.findById(req.params.id)
+    .populate('image')
+    .populate('thumbnail')
+    .then(async (job) => {
+      if (!job) {
         return res.sendStatus(401);
       }
 
-      if (req.job.author._id.toString() === req.payload.id.toString()) {
-        return req.job.remove().then(function () {
-          return res.sendStatus(204);
-        });
-      } else {
-        return res.sendStatus(403);
-      }
+      const image = job.image;
+      console.log('DELETE image', image, image.remove);
+      const image2 = await Image.findById(job.image._id).exec();
+      console.log('DELETE image 2', image2, image2.remove);
+      const thumbnail = job.thumbnail;
+      console.log('DELETE thumbnail', thumbnail);
+
+      fs.unlink(image.path, (err) => {
+        if (err) console.error(err);
+      });
+      fs.unlink(thumbnail.path, (err) => {
+        if (err) console.error(err);
+      });
+
+      await image.remove();
+      await thumbnail.remove();
+
+      await job.remove();
+
+      return res.status(204);
     })
     .catch(next);
 });

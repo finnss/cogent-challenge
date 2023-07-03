@@ -57,7 +57,7 @@ body {
 }
 
 .Mui-disabled {
-  background-color: $grey-silver-bg;
+  // background-color: $grey-silver-bg;
   color: $text-main;
   -webkit-text-fill-color: inherit;
 }
@@ -71,7 +71,7 @@ body {
 .MuiButtonBase-root.Mui-disabled,
 .MuiSvgIcon-root.Mui-disabled,
 .MuiInputLabel-formControl.Mui-disabled {
-  color: $other-stroke !important;
+  // color: $other-stroke !important;
 }
 
 .MuiInputLabel-root,
@@ -359,6 +359,12 @@ a {
 .GridContainer {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+}
+
+.Centered {
+  width: 100%;
+  margin: 0 auto;
 }
 
 // A utility css class that keeps a component at 50% on large

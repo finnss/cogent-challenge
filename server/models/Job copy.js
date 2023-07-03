@@ -1,9 +1,9 @@
-var mongoose = require('mongoose');
-var uniqueValidator = require('mongoose-unique-validator');
-var slug = require('slug');
-var Thumbnail = mongoose.model('Thumbnail');
+const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
+const slug = require('slug');
+const Thumbnail = mongoose.model('Thumbnail');
 
-var JobSchema = new mongoose.Schema(
+const JobSchema = new mongoose.Schema(
   {
     slug: { type: String, lowercase: true, unique: true },
     title: String,
@@ -32,7 +32,7 @@ JobSchema.methods.slugify = function () {
 };
 
 JobSchema.methods.updateFavoriteCount = function () {
-  var job = this;
+  const job = this;
 
   return Thumbnail.count({ favorites: { $in: [job._id] } }).then(function (count) {
     job.favoritesCount = count;

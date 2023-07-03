@@ -1,8 +1,9 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var ThumbnailSchema = new mongoose.Schema(
+const ThumbnailSchema = new mongoose.Schema(
   {
-    data: Buffer,
+    path: String,
+    // data: Buffer,
     filename: { type: String, unique: true },
     contentType: String,
     size: Number,
@@ -14,7 +15,8 @@ var ThumbnailSchema = new mongoose.Schema(
 
 ThumbnailSchema.methods.toJSONFor = function (job) {
   return {
-    data: this.data.toString('base64'),
+    // data: this.data.toString('base64'),
+    path: this.path,
     filename: this.filename,
     size: this.size,
     contentType: this.contentType,

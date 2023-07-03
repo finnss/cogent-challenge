@@ -8,4 +8,17 @@
   .MuiTableCell-root {
     vertical-align: middle;
   }
+
+  .ProcessingIcon {
+    margin: spacing(0.5) 0 0 spacing(0.5);
+    width: 10px !important;
+    height: 10px !important;
+  }
+
+  .CompleteIcon {
+    width: 18px;
+    height: 18px;
+    margin-bottom: -(spacing(0.5));
+    color: green;
+  }
 }

@@ -1,8 +1,7 @@
-var router = require('express').Router();
-var mongoose = require('mongoose');
-var Image = mongoose.model('Image');
-var multer = require('multer');
-var fs = require('fs');
+const router = require('express').Router();
+const mongoose = require('mongoose');
+const Image = mongoose.model('Image');
+const multer = require('multer');
 const path = require('path');
 const startGenerateThumbnailJob = require('../../generate-thumbnails/producer');
 
@@ -15,7 +14,7 @@ const storage = multer.diskStorage({
   },
 });
 
-var upload = multer({ storage: storage });
+const upload = multer({ storage: storage });
 
 // Preload job objects on routes with ':job'
 router.param('image', function (req, res, next, id) {
@@ -51,8 +50,8 @@ router.post('/', upload.single('image'), (req, res, next) => {
     return;
   }
 
-  var obj = {
-    data: fs.readFileSync(path.join(__dirname + '../../../uploads/' + filename)),
+  const obj = {
+    // data: fs.readFileSync(path.join(__dirname + '../../../uploads/' + filename)),
     filename,
     originalName: req.file.originalname,
     path: req.file.path,

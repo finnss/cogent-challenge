@@ -1,17 +1,13 @@
-var http = require('http'),
-  path = require('path'),
-  methods = require('methods'),
-  express = require('express'),
+const express = require('express'),
   bodyParser = require('body-parser'),
   session = require('express-session'),
   cors = require('cors'),
   errorhandler = require('errorhandler'),
-  mongoose = require('mongoose'),
-  multer = require('multer');
-var isProduction = process.env.NODE_ENV === 'production';
+  mongoose = require('mongoose');
+const isProduction = process.env.NODE_ENV === 'production';
 
 // Create global app object
-var app = express();
+const app = express();
 
 app.use(cors());
 
@@ -22,6 +18,11 @@ app.use(bodyParser.json());
 
 app.use(require('method-override')());
 app.use(express.static(__dirname + '/public'));
+console.log("__dirname + '/public'", __dirname + '/public');
+// Serve uploaded full-size images
+app.use('/uploads', express.static(__dirname + '/uploads'));
+// Serve generated thumbnails
+app.use('/thumbnails', express.static(__dirname + '/thumbnails'));
 
 app.use(
   session({
@@ -53,7 +54,7 @@ require('./generate-thumbnails');
 
 /// catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  var err = new Error('Not Found');
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
@@ -90,6 +91,6 @@ app.use(function (err, req, res, next) {
 });
 
 // finally, let's start our server...
-var server = app.listen(process.env.PORT || 5000, function () {
+const server = app.listen(process.env.PORT || 5000, function () {
   console.log('Listening on port ' + server.address().port);
 });
