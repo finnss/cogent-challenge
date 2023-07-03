@@ -1,0 +1,9 @@
+@import 'variables';
+@import 'colors';
+
+.JobsPage {
+  display: flex;
+  width: 1000px;
+  justify-content: space-around;
+  margin: 0 auto;
+}

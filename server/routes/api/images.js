@@ -4,7 +4,7 @@ var Image = mongoose.model('Image');
 var multer = require('multer');
 var fs = require('fs');
 const path = require('path');
-const startGenerateThumbnailJob = require('../../redis/producer');
+const startGenerateThumbnailJob = require('../../generate-thumbnails/producer');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -65,6 +65,8 @@ router.post('/', upload.single('image'), (req, res, next) => {
       console.log('immage created! Starting generate thumbnail job...');
       // On successful image creation, we create a long-running job to generate a thumbnail.
       const job = await startGenerateThumbnailJob(item);
+      // item.job = job;
+      // item.save();
       res.status(201).json({ jobId: job._id });
     })
     .catch((err) => {

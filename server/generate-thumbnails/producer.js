@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Job = mongoose.model('Job');
 var Bull = require('bull');
+const JOB_STATUSES = require('../models/Job');
 var Image = mongoose.model('Image');
 
 const startGenerateThumbnailJob = async (image) => {
@@ -10,20 +11,18 @@ const startGenerateThumbnailJob = async (image) => {
   console.log('image.toJSONFor', image.toJSONFor);
   console.log('image[0]', image[0]);
 
-  //   const image2 = await Image.findOne({ filename: image.filename }).exec();
-  //   console.log('image2', image2);
-  //   console.log('image2.toJSONFor', image2.toJSONFor);
+  var job = new Job();
+  job.image = image;
+  // job.queueId = redisJob.id;
+  job.status = JOB_STATUSES.PENDING;
+  await job.save();
+  console.log('job', job);
 
-  const redisJob = await thumbnailGenerationQueue.add({ image });
+  const redisJob = await thumbnailGenerationQueue.add({ job });
   //   console.log('redisJob', redisJob);
   console.log('redisJob.toKey()', redisJob.toKey());
 
-  var job = new Job();
-  job.image = image;
-  job.queueId = redisJob.id;
-  console.log('job', job);
-
-  return job.save();
+  return job;
 };
 
 module.exports = startGenerateThumbnailJob;

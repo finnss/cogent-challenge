@@ -12,7 +12,9 @@ import { showToast } from '/modules/toast';
 import { getJob, getJobs } from '/modules/jobs';
 import { uploadImage } from '/modules/images';
 import JobsTable from '/components/JobsTable';
-import '../../style/home.scss';
+import '/style/home.scss';
+import '/style/jobstable.scss';
+import '/style/table.scss';
 import Link from '/components/common/Link';
 
 const Home = () => {
@@ -21,7 +23,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const jobs = useSelector((state) => state.jobs.jobs);
-  console.log('jobs', jobs);
+  // console.log('jobs', jobs);
   const isLoading = useSelector((state) => state.jobs.loading);
   const [jobForUploadedImage, setJobForUploadedImage] = useState();
 
@@ -30,6 +32,25 @@ const Home = () => {
   useEffect(() => {
     dispatch(getJobs());
   }, []);
+
+  // Poll the job every 3 seconds until it's done
+  useEffect(() => {
+    console.log('outside poll. jobForUploadedImage', jobForUploadedImage);
+    if (jobForUploadedImage?.id) {
+      const id = setInterval(async () => {
+        console.log('in poll. jobForUploadedImage', jobForUploadedImage);
+        if (jobForUploadedImage?.id) {
+          const { job } = await dispatch(getJob(jobForUploadedImage.id, true));
+          console.log('job', job);
+          setJobForUploadedImage(job);
+          if (jobForUploadedImage.status === 'complete') clearInterval(id);
+        } else {
+          clearInterval(id);
+        }
+      }, 1000 * 3);
+      return () => clearInterval(id);
+    }
+  }, [jobForUploadedImage]);
 
   const onUploadImage = async (e) => {
     const file = e?.target?.files?.length > 0 ? e.target.files[0] : null;
@@ -45,13 +66,15 @@ const Home = () => {
     // await data.append('filename', file.name);
     console.log('data', data);
     console.log('data.get(image)', data.get('image'));
-    const uploadedImage = await dispatch(uploadImage(data, true));
-    if (uploadedImage) {
-      console.log('uploadedImage', uploadedImage);
+    const { jobId } = await dispatch(uploadImage(data, true));
+    if (jobId) {
+      console.log('jobId', jobId);
       dispatch(showToast(t('routes.home.upload_successful')));
-      const job = await dispatch(getJob(uploadedImage.jobId));
+      const { job } = await dispatch(getJob(jobId, true));
       console.log('job', job);
-      setJobForUploadedImage(job);
+      if (job) {
+        setJobForUploadedImage(job);
+      }
     }
   };
 
@@ -91,24 +114,29 @@ const Home = () => {
                 />
               </Button>
 
-              <Grid item xs={12} className='LinkToJobs' marginTop={2}>
-                <Link to='/jobs'>
-                  See all emojis <ArrowRightIcon style={{ marginBottom: '-5px' }} />
-                </Link>
-              </Grid>
-            </Grid>
+              {jobForUploadedImage ? (
+                <Grid item container xs={12} spacing={1} style={{ maxWidth: '1000px' }} marginTop={5}>
+                  <JobsTable
+                    jobs={[jobForUploadedImage]}
+                    title={t('routes.home.jobs_title')}
+                    subtitle={t('routes.home.jobs_subtitle')}
+                    includeCount={false}
+                  />
 
-            {jobForUploadedImage && (
-              <Grid item container xs={12} spacing={1} style={{ maxWidth: '1000px' }}>
-                <JobsTable jobs={[jobForUploadedImage]} />
-
-                <Grid item xs={12} className='LinkToJobs'>
+                  <Grid item xs={12} className='LinkToJobs'>
+                    <Link to='/jobs'>
+                      See all jobs <ArrowRightIcon style={{ marginBottom: '-5px' }} />
+                    </Link>
+                  </Grid>
+                </Grid>
+              ) : (
+                <Grid item xs={12} className='LinkToJobs' marginTop={3}>
                   <Link to='/jobs'>
-                    See all jobs <ArrowRightIcon style={{ marginBottom: '-5px' }} />
+                    See all emojis <ArrowRightIcon style={{ marginBottom: '-5px' }} />
                   </Link>
                 </Grid>
-              </Grid>
-            )}
+              )}
+            </Grid>
           </Grid>
         </Grid>
       </Grid>

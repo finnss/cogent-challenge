@@ -11,9 +11,11 @@ import dayjs from 'dayjs';
 
 import NoImg from '../assets/no_img.png';
 import Table from './table/Table';
-import '../style/jobstable.scss';
+import '/style/jobs.scss';
+import '/style/jobstable.scss';
+import '/style/table.scss';
 
-const JobsTable = ({ jobs }) => {
+const JobsTable = ({ jobs, ...props }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const location = useLocation();
@@ -22,24 +24,31 @@ const JobsTable = ({ jobs }) => {
   const jobColumns = useMemo(
     () => [
       {
-        Header: t('routes.home.thumbnail'),
+        Header: t('routes.jobs.thumbnail'),
         accessor: 'thumbnail',
-        Cell: ({ cell }) => <img src={cell?.value ? cell.value : NoImg} />,
+        Cell: ({ cell }) => {
+          console.log('rendering thumbnail. cell.value', cell.value);
+          return (
+            <img src={cell?.value?.data ? `data:${cell?.value?.contentType};base-64,${cell?.value.data}` : NoImg} />
+          );
+        },
       },
       {
-        Header: t('routes.home.file_name'),
+        Header: t('routes.jobs.file_name'),
         accessor: 'originalFileName',
-        Cell: ({ cell }) => <Typography variant='body2'>{cell.value}</Typography>,
+        Cell: ({ cell }) => <Typography variant='body2'>{cell.row.original.image.filename}</Typography>,
       },
       {
-        Header: t('routes.home.status'),
+        Header: t('routes.jobs.status'),
         accessor: 'status',
-        Cell: ({ cell }) => <Typography variant='body2'>{cell.value}</Typography>,
+        Cell: ({ cell }) => <Typography variant='body2'>{t(`routes.jobs.${cell.value}`)}</Typography>,
       },
       {
-        Header: t('routes.home.started_at'),
+        Header: t('routes.jobs.started_at'),
         accessor: 'createdAt',
-        Cell: ({ cell }) => <Typography variant='body2'>{cell.value}</Typography>,
+        Cell: ({ cell }) => (
+          <Typography variant='body2'>{cell.value ? dayjs(cell.value).format('MMMM D YYYY, HH:mm') : ''}</Typography>
+        ),
       },
       {
         Header: t('common.strings.actions'),
@@ -81,8 +90,8 @@ const JobsTable = ({ jobs }) => {
   return (
     <Grid item xs={12} className='JobsTable'>
       <Table
-        title={t('routes.home.jobs')}
-        subtitle={t('routes.home.jobs_description')}
+        title={t('routes.jobs.page_title')}
+        subtitle={t('routes.jobs.jobs_description')}
         columns={jobColumns}
         data={jobs || []}
         defaultSort={{ id: 'createdAt', desc: true }}
@@ -90,6 +99,7 @@ const JobsTable = ({ jobs }) => {
         onClick={onJobRowClick}
         includeCount={jobs?.length > 0}
         hideTable={jobs?.length === 0}
+        {...props}
       />
     </Grid>
   );

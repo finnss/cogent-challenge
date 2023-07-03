@@ -49,7 +49,7 @@ require('./models/Job');
 
 app.use(require('./routes'));
 
-require('./redis');
+require('./generate-thumbnails');
 
 /// catch 404 and forward to error handler
 app.use(function (req, res, next) {

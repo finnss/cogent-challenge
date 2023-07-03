@@ -83,13 +83,10 @@ router.get('/', function (req, res, next) {
       .populate('thumbnail')
       .exec(),
     Job.count(query).exec(),
-    req.payload ? User.findById(req.payload.id) : null,
   ]).then(function (results) {
     var jobs = results[0];
     var jobsCount = results[1];
     console.log('jobsCount', jobsCount);
-    var thumbnail = results[2];
-    console.log('thumbnail', thumbnail);
 
     return res.json({
       jobs: jobs.map(function (job) {
@@ -98,6 +95,23 @@ router.get('/', function (req, res, next) {
       jobsCount: jobsCount,
     });
   });
+});
+
+// get a single job by id
+
+router.get('/:id', function (req, res, next) {
+  console.log('getting single job. req.params.id', req.params.id);
+  Job.findById(req.params.id)
+    .populate('image')
+    .populate('thumbnail')
+    .then(function (job) {
+      if (!job) {
+        return res.sendStatus(404);
+      }
+
+      return res.json({ job: job.toJSON() });
+    })
+    .catch(next);
 });
 
 // delete job and associated thumbnail / image

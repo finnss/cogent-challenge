@@ -107,10 +107,20 @@
       "page_title": "Home",
       "title": "✨ Cogent Labs Emoji upload service ✨",
       "upload": "Upload image!",
-      "jobs": "Jobs",
-      "jobs_description": "This is a list of jobs to handle the images you have uploaded.",
-      "no_jobs": "No images",
-      "no_jobs_desc": "You have not uploaded any images yet. Start by clicking the button above!",
+
+      "jobs_title": "Your new emoji",
+      "jobs_subtitle": "It might take a second to process your image into an emoji. Hold on!"
+    },
+
+    "image": {
+      "title": "Detailed image"
+    },
+
+    "jobs": {
+      "page_title": "Jobs",
+      "jobs_description": "This is a list of jobs to handle the images you have uploaded and generate 100x100px emojis.",
+      "no_jobs": "No emojis",
+      "no_jobs_desc": "You have not uploaded any emojis yet. Start by going to the home page!",
 
       "job_id": "Job ID",
       "thumbnail": "Thumbnail",
@@ -120,11 +130,12 @@
       "percentage_complete": "% complete",
       "file_location": "File location",
       "upload_started": "Upload started",
-      "upload_successful": "Upload successful!"
-    },
+      "upload_successful": "Upload successful!",
 
-    "image": {
-      "title": "Detailed image"
+      "pending": "Pending",
+      "processing": "Processing",
+      "complete": "Complete",
+      "Failure": "Failed"
     }
   }
 }

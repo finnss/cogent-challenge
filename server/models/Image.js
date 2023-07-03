@@ -11,7 +11,7 @@ var ImageSchema = new mongoose.Schema(
     path: String,
     contentType: String,
     size: Number,
-    jobId: Number,
+    // job: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Job' }],
   },
   { timestamps: true }
 );
@@ -28,7 +28,7 @@ ImageSchema.methods.toDetailedJSON = async () => {
     contentType: this.contentType,
     createdAt: this.createdAt,
     thumbnail: thumbnail.toJSONFor(this),
-    jobId: this.jobId,
+    // job: this.job,
   };
 };
 
@@ -38,7 +38,7 @@ ImageSchema.methods.toJSONFor = function (job) {
     size: this.data?.length || 0,
     contentType: this.contentType,
     createdAt: this.createdAt,
-    jobId: this.jobId,
+    // job: this.job,
   };
 };
 
