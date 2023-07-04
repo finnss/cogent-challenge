@@ -5,6 +5,12 @@ const multer = require('multer');
 const path = require('path');
 const startGenerateThumbnailJob = require('../../generate-thumbnails/producer');
 
+/**
+ * Controller for handling REST API requests to the "/images" endpoint.
+ **/
+
+// We use the multer library for handling image upload requests. Upon successful
+// image upload, multer stores the image file in the indicated folder.
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads');
@@ -16,28 +22,24 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// Preload job objects on routes with ':job'
-router.param('image', function (req, res, next, id) {
-  Image.findById(id)
-    .then(function (image) {
-      if (!image) {
-        return res.sendStatus(404);
-      }
-      console.log('preload thing for image', image);
-
-      req.image = image;
-
-      return next();
+// Get a list of all images
+router.get('/', function (req, res, next) {
+  Image.find()
+    .then(function (images) {
+      return res.json(images);
     })
     .catch(next);
 });
 
-// return a list of images
-router.get('/', function (req, res, next) {
-  Image.find()
-    // .distinct('imageList')
-    .then(function (images) {
-      return res.json({ images: images });
+// Get a single image by id
+router.get('/:id', function (req, res, next) {
+  Image.findById(req.params.id)
+    .then(function (image) {
+      if (!image) {
+        return res.sendStatus(404);
+      }
+
+      return res.json(image.toDetailedJSON());
     })
     .catch(next);
 });
@@ -51,7 +53,6 @@ router.post('/', upload.single('image'), (req, res, next) => {
   }
 
   const obj = {
-    // data: fs.readFileSync(path.join(__dirname + '../../../uploads/' + filename)),
     filename,
     originalName: req.file.originalname,
     path: req.file.path,

@@ -44,97 +44,6 @@ body {
   height: max(200px, 90vh);
 }
 
-.MuiInputBase-root {
-  background-color: white;
-
-  input:disabled,
-  button:disabled,
-  .Mui-disabled {
-    background-color: $grey-silver-bg;
-    color: $text-main;
-    -webkit-text-fill-color: inherit;
-  }
-}
-
-.Mui-disabled {
-  // background-color: $grey-silver-bg;
-  color: $text-main;
-  -webkit-text-fill-color: inherit;
-}
-
-.MuiFormControl-root.Mui-disabled,
-.MuiFormControlLabel-root.Mui-disabled,
-.MuiFormControlLabel-root .MuiFormControlLabel-label.Mui-disabled {
-  color: $text-main;
-}
-
-.MuiButtonBase-root.Mui-disabled,
-.MuiSvgIcon-root.Mui-disabled,
-.MuiInputLabel-formControl.Mui-disabled {
-  // color: $other-stroke !important;
-}
-
-.MuiInputLabel-root,
-.MuiInputLabel-shrink.Mui-disabled {
-  background: none !important;
-  color: $grey-medium !important;
-}
-
-.MuiFormGroup-root .Mui-disabled,
-.MuiFormControl-root label.Mui-disabled {
-  background: none;
-}
-
-.CheckBox,
-.CheckBox .Mui-disabled {
-  background: none !important;
-}
-
-.MuiFormGroup-root label {
-  margin-bottom: -(spacing(1));
-}
-
-.MuiInputBase-root,
-.MuiInputBase-input,
-.MuiFormLabel-root,
-.MuiFormControlLabel-label {
-  font-size: 1rem;
-}
-
-.MuiFormLabel-root {
-  color: $text-main !important;
-}
-
-.MuiTypography-body2 {
-  font-size: 1rem;
-}
-
-.MuiCheckbox-root ~ .MuiTypography-root {
-  padding-top: 1px;
-}
-
-.MuiRadio-root ~ .MuiTypography-root {
-  padding-top: 2px;
-}
-
-.StandaloneLink {
-  font-size: 1rem;
-  font-weight: 500;
-  text-transform: uppercase;
-}
-
-.WarningBubbleContainer {
-  height: fit-content;
-}
-
-.WarningBubble {
-  border: 1px solid $yellow-warning;
-  border-radius: spacing(4);
-  padding: spacing(1) spacing(2);
-  width: fit-content;
-  font-size: 1rem;
-}
-
 #main {
   position: relative;
   height: 100%;
@@ -152,11 +61,6 @@ a {
     cursor: pointer;
   }
 }
-
-.MuiDialogTitle-root {
-  font-size: 1.75rem;
-}
-
 .ErrorMessage {
   font-size: 14px;
   margin-top: 2px;
@@ -169,16 +73,6 @@ a {
 
 .Italic {
   font-style: italic;
-}
-
-.NoAsterisk {
-  .MuiFormLabel-asterisk {
-    display: none;
-  }
-}
-
-.TextPaddedTop {
-  margin-top: spacing(2);
 }
 
 .MuiTypography-h1,
@@ -231,32 +125,6 @@ a {
     }
   }
 
-  // Drawer
-  .MuiDrawer-root {
-    width: $drawer-width;
-    z-index: $drawer-zindex;
-    flex-shrink: 0;
-
-    .MuiPaper-root {
-      position: absolute;
-      width: $drawer-width;
-      z-index: $drawer-zindex;
-      margin-top: $appbar-height;
-      max-height: calc(100vh - #{$appbar-height});
-
-      &::-webkit-scrollbar {
-        width: 0px;
-      }
-    }
-
-    .MenuTitle {
-      padding-top: spacing(2);
-      padding-left: spacing(1);
-      padding-bottom: spacing(1);
-      font-weight: 500;
-    }
-  }
-
   .Page {
     margin-top: $appbar-height;
     flex-grow: 1;
@@ -275,19 +143,6 @@ a {
     padding-top: $page-padding;
     display: flex;
     justify-content: space-between;
-  }
-
-  .IconHeader {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: spacing(3);
-
-    .MuiSvgIcon-root {
-      margin-right: spacing(2);
-      font-size: 34px;
-      color: $blue-dark;
-    }
   }
 
   .SubTitle {
@@ -325,28 +180,6 @@ a {
   justify-content: center;
   flex-direction: column;
   height: max(200px, 90vh);
-}
-
-.LightButton {
-  border-radius: spacing(3);
-  background-color: $light-blue;
-  color: $text-main;
-  margin: spacing(1);
-  padding: spacing(1) spacing(2);
-  text-transform: capitalize;
-
-  .MuiButton-endIcon {
-    color: $grey-active;
-  }
-}
-
-// Modal style
-.MuiDialogActions-root {
-  padding: 1rem;
-
-  .MuiButton-root {
-    margin-left: 1rem;
-  }
 }
 
 .OuterGridContainer {

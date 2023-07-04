@@ -1,45 +1,41 @@
 const mongoose = require('mongoose');
-// const nanoid = require('nanoid');
-const uniqueValidator = require('mongoose-unique-validator');
-const Thumbnail = mongoose.model('Thumbnail');
 
+/*
+ * Image: A model used to represent uploaded images. Note that we chose to not
+ * store the image data in the database, but instead only a path to the location
+ * of the file. This was chosen for simplicity as well as for easier
+ * future to migration to proper hosting solutions like S3.
+ */
 const ImageSchema = new mongoose.Schema(
   {
-    // data: Buffer,
     path: String,
     filename: { type: String, unique: true },
     originalName: String,
     contentType: String,
     size: Number,
-    // job: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Job' }],
   },
   { timestamps: true }
 );
 
-// FIXME Include thumbnail for image in JSON response
-ImageSchema.methods.toDetailedJSON = async () => {
-  const thumbnail = await Thumbnail.find({ 'image.filename': this.filename }).exec();
+ImageSchema.methods.toJSON = function () {
   return {
-    // data: this.data,
+    id: this._id,
+    path: this.path,
+    originalName: this.originalName,
+    size: this.size,
+    contentType: this.contentType,
+  };
+};
+
+ImageSchema.methods.toDetailedJSON = function () {
+  return {
+    id: this._id,
     path: this.path,
     filename: this.filename,
     originalName: this.originalName,
     size: this.size,
     contentType: this.contentType,
     createdAt: this.createdAt,
-    thumbnail: thumbnail.toJSONFor(this),
-    // job: this.job,
-  };
-};
-
-ImageSchema.methods.toJSONFor = function (job) {
-  return {
-    path: this.path,
-    filename: this.filename,
-    size: this.size,
-    contentType: this.contentType,
-    createdAt: this.createdAt,
-    // job: this.job,
   };
 };
 

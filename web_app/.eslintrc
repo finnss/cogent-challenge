@@ -3,7 +3,7 @@
     "shared-node-browser": true,
     "es2022": true
   },
-  "extends": ["plugin:jsdoc/recommended", "plugin:react/recommended", "plugin:react-hooks/recommended"],
+  "extends": ["plugin:react/recommended", "plugin:react-hooks/recommended"],
   "parser": "@babel/eslint-parser",
   "parserOptions": {
     "ecmaFeatures": {
@@ -16,7 +16,7 @@
       "presets": ["@babel/preset-react"]
     }
   },
-  "plugins": ["jsdoc", "react", "react-hooks", "@babel"],
+  "plugins": ["react", "react-hooks", "@babel"],
   "settings": {
     "react": {
       "version": "detect"
@@ -51,12 +51,6 @@
     // Causes issues with prettier
     "space-before-function-paren": "off",
     "@babel/no-invalid-this": "error",
-    "operator-linebreak": "off",
-    "jsdoc/require-jsdoc": "off",
-    "require-jsdoc": "off",
-    "valid-jsdoc": "off",
-    "jsdoc/newline-after-description": "off",
-    "jsodc/require-param-description": "off",
-    "jsdoc/require-param": "off"
+    "operator-linebreak": "off"
   }
 }

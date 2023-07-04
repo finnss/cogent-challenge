@@ -6,8 +6,6 @@ const GET_IMAGE_BEGIN = 'GET_IMAGE_BEGIN';
 const GET_IMAGE_SUCCESS = 'GET_IMAGE_SUCCESS';
 const UPLOAD_IMAGE_BEGIN = 'UPLOAD_IMAGE_BEGIN';
 const UPLOAD_IMAGE_SUCCESS = 'UPLOAD_IMAGE_SUCCESS';
-const UPDATE_IMAGE_BEGIN = 'UPDATE_IMAGE_BEGIN';
-const UPDATE_IMAGE_SUCCESS = 'UPDATE_IMAGE_BEGIN';
 const DELETE_IMAGE_BEGIN = 'DELETE_IMAGE_BEGIN';
 const DELETE_IMAGE_SUCCESS = 'DELETE_IMAGE_BEGIN';
 
@@ -43,15 +41,6 @@ export const uploadImage =
     return image;
   };
 
-export const updateImage =
-  (updatedImage, doInBackground = false) =>
-  async (dispatch) => {
-    dispatch({ type: UPDATE_IMAGE_BEGIN, doInBackground });
-    const image = await API.images.updateImage(updatedImage);
-    dispatch({ type: UPDATE_IMAGE_SUCCESS, image });
-    return image;
-  };
-
 export const deleteImage =
   (id, doInBackground = false) =>
   async (dispatch) => {
@@ -65,7 +54,6 @@ export default function reducer(state = initialState, action) {
   switch (action.type) {
     case GET_IMAGE_BEGIN:
     case UPLOAD_IMAGE_BEGIN:
-    case UPDATE_IMAGE_BEGIN:
     case GET_IMAGES_BEGIN:
     case DELETE_IMAGE_BEGIN:
       return {
@@ -81,7 +69,6 @@ export default function reducer(state = initialState, action) {
       };
 
     case GET_IMAGE_SUCCESS:
-    case UPDATE_IMAGE_SUCCESS:
       return {
         ...state,
         images: state.images.map((p) => p.id).includes(action.image.id)

@@ -9,13 +9,11 @@
       "delete": "Delete",
       "yes": "Yes",
       "no": "No",
-      "download": "Download",
       "view": "View",
       "never": "Never",
       "search": "Search",
       "logout": "Log out",
       "cancel": "Cancel",
-      "register": "Registrer",
       "update": "Update",
       "next": "Next",
       "previous": "Previous",
@@ -45,41 +43,31 @@
     },
     "strings": {
       "name": "Name",
-      "user": "User",
       "actions": "Actions",
-      "number": "Number",
-      "phone_nr": "Phone number",
       "time": "Time",
       "date": "Date",
-      "performed": "Performed",
-      "performed_by": "Performed by",
-      "performed_at": "Date performed",
       "created_at": "Date created at",
       "updated_at": "Last saved at",
       "time_range": "Time range",
       "start_date": "Start date",
       "end_date": "End date",
-      "export_to_file": "Export data to file",
-      "denomination": "Denomination",
-      "category": "Category",
-      "type": "Type",
       "amount": "Amount",
       "update_success": "Update successful"
     }
   },
   "errors": {
     "required": "This field is required",
-    "minLength": "This content is too short",
-    "maxLength": "This content is too long",
-    "incomplete": "Incomplete",
-    "pattern": "Please use a valid format.",
-    "full_name": "Please provide a full name: minimum one first name + one last name, separated by whitespaces.",
     "unknown": "Unknown",
     "generic": "Something went wrong. Please try again later or contact support.",
     "forbidden": "You do not have permission to see this content.",
     "failed": "Failed",
     "missing_password": "Password is mandatory",
+
     "upload_start": "Something went wrong while trying to upload your image..",
+    "download_no_url": "There was an error attempting to download this image.",
+    "no_url": "No url found for this image.",
+    "detailed_image": "An error occured while trying to get detailed iamge data",
+    "cannot_delete": "An error occured while trying delete this job.",
 
     "backend": {
       "internal_server_error": "The server encountered an unexpected error while handling your request. Please try again later or contact support.",
@@ -92,16 +80,38 @@
       "auth_token_expired": "Your session has expired. Please log in again.",
       "token_error": "Something went wrong with communication with the authorization provider. Please try again or contact support.",
       "missing_auth_token": "Unauthorized attempt to access the system. Please log in.",
-      "missing_permission": "You lack the permissions to perform the request action. If you believe this to be an error, please contact support.",
-
-      "person_404": "The requested person was not found in the system. Please try again later or contact support.",
-      "person_exists": "The person with this person number is already registered in the system."
+      "missing_permission": "You lack the permissions to perform the request action. If you believe this to be an error, please contact support."
     }
   },
   "components": {
     "table": {
       "all": "All",
       "label_rows_per_page": "Rows per page"
+    },
+
+    "jobs_table": {
+      "job_id": "Job ID",
+      "thumbnail": "Thumbnail",
+      "original_file_name": "Original Filename",
+      "status": "Status",
+      "started_at": "Job started",
+      "percentage_complete": "% complete",
+      "file_location": "File location",
+      "download": "Download thumbnail",
+      "thumbnail_url": "Thumbnail URL",
+      "deleted": "Deleted job, image, and thumbnail successfully",
+
+      "pending": "Pending",
+      "processing": "Processing",
+      "complete": "Complete",
+      "Failure": "Failed"
+    },
+
+    "detailed_image": {
+      "title": "Full image information",
+      "full_size_image": "Full size image",
+      "image_url": "Full Image URL",
+      "image_uploaded_at": "Image uploaded at"
     }
   },
   "routes": {
@@ -124,20 +134,7 @@
       "page_title": "Jobs",
       "jobs_description": "This is a list of jobs to handle the images you have uploaded and generate 100x100px emojis.",
       "no_jobs": "No emojis",
-      "no_jobs_desc": "You have not uploaded any emojis yet. Start by going to the home page!",
-
-      "job_id": "Job ID",
-      "thumbnail": "Thumbnail",
-      "file_name": "Filename",
-      "status": "Status",
-      "started_at": "Job started",
-      "percentage_complete": "% complete",
-      "file_location": "File location",
-
-      "pending": "Pending",
-      "processing": "Processing",
-      "complete": "Complete",
-      "Failure": "Failed"
+      "no_jobs_desc": "You have not uploaded any emojis yet. Start by going to the home page!"
     }
   }
 }

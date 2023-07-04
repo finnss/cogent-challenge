@@ -1,9 +1,15 @@
 const router = require('express').Router();
 const mongoose = require('mongoose');
 const Image = mongoose.model('Image');
+const Thumbnail = mongoose.model('Thumbnail');
 const Job = mongoose.model('Job');
 const fs = require('fs');
 
+/**
+ * Controller for handling REST API requests to the "/jobs" endpoint.
+ **/
+
+// Get a list of all jobs
 router.get('/', function (req, res, next) {
   const query = {};
   // Limit and offset used for pagination. Currently effectively disabled by default using 9999 as the
@@ -46,8 +52,7 @@ router.get('/', function (req, res, next) {
   });
 });
 
-// get a single job by id
-
+// Get a single job by id
 router.get('/:id', function (req, res, next) {
   console.log('getting single job. req.params.id', req.params.id);
   Job.findById(req.params.id)
@@ -58,12 +63,12 @@ router.get('/:id', function (req, res, next) {
         return res.sendStatus(404);
       }
 
-      return res.json({ job: job.toJSON() });
+      return res.json(job.toJSON());
     })
     .catch(next);
 });
 
-// delete job and associated thumbnail / image
+// Delete job and associated thumbnail / image
 router.delete('/:id', function (req, res, next) {
   Job.findById(req.params.id)
     .populate('image')
@@ -72,13 +77,8 @@ router.delete('/:id', function (req, res, next) {
       if (!job) {
         return res.sendStatus(401);
       }
-
       const image = job.image;
-      console.log('DELETE image', image, image.remove);
-      const image2 = await Image.findById(job.image._id).exec();
-      console.log('DELETE image 2', image2, image2.remove);
       const thumbnail = job.thumbnail;
-      console.log('DELETE thumbnail', thumbnail);
 
       fs.unlink(image.path, (err) => {
         if (err) console.error(err);
@@ -87,12 +87,14 @@ router.delete('/:id', function (req, res, next) {
         if (err) console.error(err);
       });
 
-      await image.remove();
-      await thumbnail.remove();
+      const { deletedCount: dcImg } = await Image.deleteOne({ _id: image._id }).exec();
+      const { deletedCount: dcTb } = await Thumbnail.deleteOne({ _id: thumbnail._id }).exec();
+      const { deletedCount: dcJob } = await Job.deleteOne({ _id: job._id }).exec();
 
-      await job.remove();
-
-      return res.status(204);
+      if (dcImg + dcTb + dcJob === 3) {
+        return res.status(204).send();
+      }
+      return res.status(500).json({ error: 'Something went wrong while deleting job / image / thumbnail.' });
     })
     .catch(next);
 });

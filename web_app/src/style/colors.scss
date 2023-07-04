@@ -1,84 +1,83 @@
-// Brukes i header for verktøy og i flater for kontrast
 $dark-primary: #212a3d;
-// Brukes til menylinjer med verktøy
+
 $blue-dark-police: #0d224b;
-// Brukes til togglebuttons
+
 $blue-dark: #003865;
-// Brukes på skråstrek, kan brukes på knapper
+
 $yellow-main: #ffd923;
-// Brukes i header der header er skundær og informativ, sammen med boarder
+
 $light-silver: #f7f7f7;
-// Brukes på hovedknapper
+
 $blue-interactive: #007dff;
-// Tekstlenker og knapper
+
 $blue-link: #007dff;
-// Til accordion:
+
 $blue-medium: #abcae9;
-// Sekundære knappen
+
 $light-blue: #e5f1fa;
-// Blå knapper
+
 $blue-dark-button: #0072ce;
-// For menu icon
+
 $blue-menu-icon: #7fb8e6;
-// bakgrunn i rullgardinbokser
+
 $light-accordion: #eef5fb;
-// Sekundærfarge
+
 $grey-gunmetal: #4b5363;
-// For valg som ikke er tilgjengelige
+
 $grey-cool: #707070;
-// For tydelige flater
+
 $grey-silver: #e4e5e8;
-// Til f.eks. bakgrunn om man skal dele opp innhold
+
 $light-silver: #f7f7f7;
-// Til bakgrunn i toggleButtons
+
 $grey-medium-light: #e2e5e7;
-// For borders i tabeller, osv
+
 $grey-light: #e2e5e7;
-// For bakgrunn på modaler
+
 $grey-almost-light: #fcfcfc;
-// For tekst som ikke skal fremheves
+
 $grey-dark: #2d2926;
-// For placeholder text
+
 $grey-medium: #5f5d5c;
-// Hovedbakgrunn
+
 $grey-silver-bg: #f7f8f9;
-// Brukes på ikoner, aldri på tekst
+
 $red-alert: #eb0b18;
-// Alert for tekst
+
 $red-text: #df2b36;
-// Brukes på toast
+
 $red-toast-bg: #f44336;
-// Brukes på toas
+
 $red-toast-text: #7e2019;
-// Kan brukes som bakgrunsfarge på knapper o.l.
+
 $red-medium: #f2a7ac;
-// God kontrast til ikoner
+
 $valid-green: #33882b;
-// For visse knapper
+
 $green-dark: #26853c;
-// For grønn tekst
+
 $green-light: #4caf50;
-// For grønn border
+
 $green-function: #a8ceb1;
-// For grønne knapper
+
 $green-bg: #deede2;
-// For grønne knapper
+
 $green-border: rgba(76, 175, 80, 0.5);
-// For grønne knapper
+
 $green-toast-text: #1e4620;
-// Brukes på ikoner
+
 $yellow-warning: #ebb500;
-// Brukes på "Warning"-boksen
+
 $yellow-bg: #fff4cc;
-// Brukes på "Warning"-boksen
+
 $yellow-border: #fdda25;
-// Brukes til å farge bakgrunn gul'ish for å markere nye hendelser/alarmer i tabellen
+
 $notification-bg: #fff5e5;
-// Brukes til å matche Material UI sine textfield borders
+
 $other-stroke: rgba(0, 0, 0, 0.23);
-// Brukes til å matche Material UI sine textfield borders
+
 $text-main: rgba(0, 0, 0, 0.87);
-// Fill color for components in active state (List, Table, etc)
+
 $grey-active: rgba(0, 0, 0, 0.54);
 
 @function color($color, $color-variant: null) {

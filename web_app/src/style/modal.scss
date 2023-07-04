@@ -4,15 +4,23 @@
 .Modal {
   .MuiPaper-root {
     background-color: $grey-almost-light;
-  }
-}
-
-.ConfirmModal {
-  .MuiPaper-root {
-    max-width: 450px;
+    max-width: 90vw;
+    width: 100%;
   }
 
   .MuiDialogTitle-root {
-    font-size: 1rem;
+    font-size: 1.75rem;
+  }
+
+  .MuiDialogContent-root {
+    padding-top: spacing(2);
+  }
+
+  .MuiDialogActions-root {
+    padding: 1rem;
+
+    .MuiButton-root {
+      margin-left: 1rem;
+    }
   }
 }

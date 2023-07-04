@@ -1,7 +1,5 @@
 # Cogent Labs Code Challenge frontend
 
-*Last updated 2023-02-13*
-
 This is the frontend webapp for the Cogent Labs code challenge. 
 
 ## Installing
@@ -16,12 +14,7 @@ To install, simply do
 
 ### Environment variables 
 
-Make the file `web_client/.env` and add the following data:
-
-```
-DEV=true
-API_HOST=http://localhost:8082/v1
-```
+Make the file `.env` and add data according to the `.env.template` structure.
 
 ## Running
 

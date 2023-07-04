@@ -10,8 +10,6 @@ import Link from '/components/common/Link';
  * Links that display at the top of a page if it is not a top-level route, and
  * allows the user to go back to a previous page. Which links are shown is based
  * on the routing hierarchy defined in the files under '/routes'.
- * @param {{ routes: any }}
- * @returns {JSX.Element}
  */
 function Breadcrumbs({ routes }) {
   const params = useParams();

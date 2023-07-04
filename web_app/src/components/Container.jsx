@@ -14,13 +14,6 @@ import Breadcrumbs from '/components/Breadcrumbs';
 /**
  * Container component that wraps a page
  * Displays AppBar and Footer around the content. Adds breadcrumbs if present.
- *
- * @param {{ pageTitle: string }}
- * @param {{ className: string }}
- * @param {{ pageClassName: string }}
- * @param {{ contentClassName: string }}
- * @param {{ children: JSX.Element }}
- * @returns {JSX.Element} Container
  */
 const Container = ({ pageTitle, className, pageClassName, contentClassName, breadcrumbs, showErrorPage, children }) => {
   const pageDivRef = useRef(null);

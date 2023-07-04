@@ -16,9 +16,7 @@ const responseHandler = async (res) => {
   }
 
   const contentType = res.headers.get('Content-Type');
-  console.log('contentType', contentType);
   const isJson = contentType !== null && contentType.includes('application/json');
-  console.log('isJson', isJson);
 
   return isJson ? res.json() : res.text();
 };

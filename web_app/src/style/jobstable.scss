@@ -2,12 +2,7 @@
 @import 'colors';
 
 .JobsTable > .MuiGrid-container {
-  // max-width: 1000px;
   margin: 0 auto;
-
-  .MuiTableCell-root {
-    vertical-align: middle;
-  }
 
   .ProcessingIcon {
     margin: spacing(0.5) 0 0 spacing(0.5);

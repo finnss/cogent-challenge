@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+  mongo:
+    image: mongo
+    environment:
+        # - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USER}
+        # - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
+        - MONGO_INITDB_DATABASE=cogent
+  server:
+    image: cogent-server
+    build:
+      context: server
+      dockerfile: ./Dockerfile
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo
+      # - ME_CONFIG_MONGODB_PORT=27017
+      # - ME_CONFIG_MONGODB_ENABLE_ADMIN=false
+      # - ME_CONFIG_MONGODB_AUTH_DATABASE=admin
+      # - ME_CONFIG_MONGODB_AUTH_USERNAME=${MONGO_ROOT_USER}
+      # - ME_CONFIG_MONGODB_AUTH_PASSWORD=${MONGO_ROOT_PASSWORD}
+      # - ME_CONFIG_BASICAUTH_USERNAME=${MONGOEXPRESS_LOGIN}
+      # - ME_CONFIG_BASICAUTH_PASSWORD=${MONGOEXPRESS_PASSWORD}
+    depends_on:
+      - mongo
+    ports:
+      - "5000:5000"
+    expose:
+      - "5000"
+    volumes:
+      - server:/uploads
+      - server:/thumbnails
+  web_app:
+    image: cogent-webapp
+    build:
+      context: web_app
+      dockerfile: ./Dockerfile
+    environment:
+      - API_HOST=http://localhost:5000/api
+      # - ME_CONFIG_MONGODB_PORT=27017
+      # - ME_CONFIG_MONGODB_ENABLE_ADMIN=false
+      # - ME_CONFIG_MONGODB_AUTH_DATABASE=admin
+      # - ME_CONFIG_MONGODB_AUTH_USERNAME=${MONGO_ROOT_USER}
+      # - ME_CONFIG_MONGODB_AUTH_PASSWORD=${MONGO_ROOT_PASSWORD}
+      # - ME_CONFIG_BASICAUTH_USERNAME=${MONGOEXPRESS_LOGIN}
+      # - ME_CONFIG_BASICAUTH_PASSWORD=${MONGOEXPRESS_PASSWORD}
+    ports:
+      - "3000:3000" 
+
+volumes:
+  server:

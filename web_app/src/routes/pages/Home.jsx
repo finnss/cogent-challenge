@@ -1,61 +1,41 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Grid, Typography } from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
-import { useExitPagePrompt } from '/util';
+import { showToast } from '/modules/toast';
+import { getJob } from '/modules/jobs';
+import { uploadImage } from '/modules/images';
+import JobsTable from '/components/jobs/JobsTable';
 import Container from '/components/Container';
 import Loading from '/components/common/Loading';
-import { showToast } from '/modules/toast';
-import { getJob, getJobs } from '/modules/jobs';
-import { uploadImage } from '/modules/images';
-import JobsTable from '/components/JobsTable';
+import Link from '/components/common/Link';
 import '/style/home.scss';
 import '/style/jobstable.scss';
 import '/style/table.scss';
-import Link from '/components/common/Link';
 
+/*
+ * Home is the main component of the app. It shows an upload button for starting
+ * thumbnail generation jobs, as well as conditionally a table showing the status
+ * of the recently started job.
+ */
 const Home = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
-  const jobs = useSelector((state) => state.jobs.jobs);
-  // console.log('jobs', jobs);
   const isLoading = useSelector((state) => state.jobs.loading);
   const [pollJobId, setPollJobId] = useState();
   const [jobForUploadedImage, setJobForUploadedImage] = useState();
 
-  useExitPagePrompt(t('routes.home.confirm_navigation'), false);
-
-  useEffect(() => {
-    dispatch(getJobs());
-  }, []);
-
-  // Poll the job every 1 seconds until it's done
-  useEffect(() => {
-    console.log('outside poll. jobForUploadedImage', jobForUploadedImage);
-    const id = setInterval(async () => {
-      if (pollJobId) {
-        console.log('in poll. jobForUploadedImage', jobForUploadedImage);
-
-        const job = await dispatch(getJob(pollJobId, true));
-        console.log('job', job);
-        setJobForUploadedImage(job);
-        if (job?.status === 'complete') clearInterval(id);
-      } else {
-        clearInterval(id);
-      }
-    }, 1000 * 1);
-    return () => clearInterval(id);
-  }, [pollJobId]);
-
+  // Main function used for uploading an image for thumbnail generation.
+  // The image is sent as multipart/form-data, which allows for easy handling backend.
+  // After the image has been successfully uploaded, we recieve a job id
+  // that can be used to call the /jobs/:id endpoint to retrieve up-to-date
+  // information about the processing status of our job, and when finished,
+  // the resulting Thumbnail.
   const onUploadImage = async (e) => {
     const file = e?.target?.files?.length > 0 ? e.target.files[0] : null;
-
-    console.log('Uploading image. file', file);
     if (!file) {
       dispatch(showToast(t('errors.upload_start')));
     }
@@ -63,15 +43,12 @@ const Home = () => {
 
     const data = new FormData();
     await data.append('image', file);
-    // await data.append('filename', file.name);
-    console.log('data', data);
-    console.log('data.get(image)', data.get('image'));
+
     const { jobId } = await dispatch(uploadImage(data, true));
     if (jobId) {
-      console.log('jobId', jobId);
       dispatch(showToast(t('routes.home.upload_successful')));
+
       const job = await dispatch(getJob(jobId, true));
-      console.log('job', job);
       if (job) {
         setJobForUploadedImage(job);
         setPollJobId(job.id);
@@ -79,7 +56,28 @@ const Home = () => {
     }
   };
 
+  // After a user has uploaded an image and thus started a job to generate a
+  // thumbnail, we poll the job every second until it's done. This is mainly
+  // done to keep the "Status" indicator up-to-date, as well as to display the
+  // resulting thumbnail and allow download once the job is complete.
+  useEffect(() => {
+    const id = setInterval(async () => {
+      if (pollJobId) {
+        const job = await dispatch(getJob(pollJobId, true));
+        if (job) {
+          setJobForUploadedImage(job);
+          if (job?.status === 'complete') clearInterval(id);
+        } else clearInterval(id);
+      } else {
+        clearInterval(id);
+      }
+    }, 1000);
+
+    return () => clearInterval(id);
+  }, [pollJobId]);
+
   if (isLoading) {
+    console.log('home isLoading');
     return (
       <Container showErrorPage>
         <Loading />
@@ -131,6 +129,7 @@ const Home = () => {
                     title={t('routes.home.jobs_title')}
                     subtitle={t('routes.home.jobs_subtitle')}
                     includeCount={false}
+                    deleteCallback={() => setJobForUploadedImage(null)}
                   />
 
                   <Grid item xs={12} className='LinkToJobs'>

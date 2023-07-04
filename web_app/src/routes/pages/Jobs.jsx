@@ -1,28 +1,38 @@
 /* eslint-disable react/prop-types */
 import { Grid, Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import '../../style/jobs.scss';
 
-import Container from '../../components/Container';
-import Loading from '../../components/common/Loading';
-import JobsTable from '/components/JobsTable';
-import { getJobs } from '/modules/jobs';
+import Container from '/components/Container';
+import Loading from '/components/common/Loading';
+import JobsTable from '/components/jobs/JobsTable';
 import Link from '/components/common/Link';
+import { getJobs } from '/modules/jobs';
+import '/style/jobs.scss';
 
+/*
+ * Jobs is the only sub-route of the app, used to display a table containing all jobs.
+ */
 const Jobs = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const jobs = useSelector((state) => state.jobs.jobs);
-  console.log('jobs', jobs);
   const isLoading = useSelector((state) => state.jobs.loading);
-  const [currentImage, setCurrentImage] = useState();
 
+  // Fetch all jobs upon loading the page
   useEffect(() => {
     dispatch(getJobs());
+  }, []);
+
+  // Poll all jobs every 5 seconds in order to keep the table data up to date.
+  useEffect(() => {
+    const id = setInterval(() => {
+      dispatch(getJobs(true));
+    }, 1000 * 5);
+
+    return () => clearInterval(id);
   }, []);
 
   const breadcrumbs = [
@@ -31,6 +41,7 @@ const Jobs = () => {
   ];
 
   if (isLoading) {
+    console.log('jobs isLoading');
     return (
       <Container showErrorPage>
         <Loading />

@@ -4,9 +4,7 @@ import { AppBar as MuiAppBar, Toolbar, Typography } from '@mui/material';
 import '../style/main.scss';
 
 /**
- *
- * @param {string} logoUrl - URL to the logo
- * @returns {JSX.Element} The Appbar
+ * The Bar to be shown on top of the page, including the Logo and page title.
  */
 const AppBar = ({ title, logoUrl }) => {
   const navigate = useNavigate();
