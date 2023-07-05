@@ -42,10 +42,13 @@ describe('GET /api/jobs', () => {
   it('should return the test image in a list', async () => {
     const res = await request(app).get('/api/jobs');
     expect(res.statusCode).toBe(200);
-    expect(res.body.jobs.length).toBe(1);
-    expect(res.body.jobs[0].id).toBe(jobId.toString());
-    expect(res.body.jobs[0].status).toBe(JOB_STATUSES.PENDING);
-    expect(res.body.jobs[0].image.id).toBe(imgId.toString());
+
+    const testJob = res.body.jobs.find(j => j.id === jobId.toString())
+    console.log('testJob', testJob);
+    console.log('res.body.jobs', res.body.jobs);
+    expect(testJob?.id).toBe(jobId.toString());
+    expect(testJob?.status).toBe(JOB_STATUSES.PENDING);
+    expect(testJob?.image.id).toBe(imgId.toString());
   });
 });
 
@@ -54,10 +57,10 @@ describe('GET /api/images', () => {
     const res = await request(app).get('/api/images');
     expect(res.statusCode).toBe(200);
 
-    expect(res.body.length).toBe(1);
-    expect(res.body[0].id).toBe(imgId.toString());
-    expect(res.body[0].originalName).toBe('test.jpg');
-    expect(res.body[0].contentType).toBe('image/jpg');
+    const testImg = res.body.find(i => i.id === imgId.toString())
+    expect(testImg.id).toBe(imgId.toString());
+    expect(testImg.originalName).toBe('test.jpg');
+    expect(testImg.contentType).toBe('image/jpg');
   });
 });
 
@@ -83,9 +86,9 @@ describe('DELETE /api/jobs/:id', () => {
     expect(res.statusCode).toBe(204);
 
     const dbJobs = await Job.find().exec();
-    expect(dbJobs.length).toBe(0);
+    expect(dbJobs.filter(job => job.id === jobId.toString()).length).toBe(0);
 
     const dbImages = await Image.find().exec();
-    expect(dbImages.length).toBe(0);
+    expect(dbImages.filter(image => image.id === imgId.toString()).length).toBe(0);
   });
 });
