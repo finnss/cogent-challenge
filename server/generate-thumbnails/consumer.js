@@ -38,7 +38,7 @@ module.exports = async function (redisJob, done) {
 
     // We then store the a referene to our newly generated Thumbnail in the database, along with some metadata.
     // Note that we do not store the actual data in the database.
-    const dbThumbnail = await Thumbnail();
+    const dbThumbnail = new Thumbnail();
     dbThumbnail.filename = filename;
     dbThumbnail.path = filepath;
     dbThumbnail.size = imgThumbnail.length;

@@ -53,7 +53,6 @@ describe('GET /api/images', () => {
   it('should return the test image in a list', async () => {
     const res = await request(app).get('/api/images');
     expect(res.statusCode).toBe(200);
-    console.log('asd', res.body);
 
     expect(res.body.length).toBe(1);
     expect(res.body[0].id).toBe(imgId.toString());

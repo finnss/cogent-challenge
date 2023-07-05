@@ -95,15 +95,20 @@ const DetailedImageModal = ({ dataForDetailedImageModal, setDataForDetailedImage
   const onClickDownload = (job) => {
     const imageUrl = getImageUrl(job?.thumbnail?.path);
     if (imageUrl) {
-      saveAs(imageUrl, job.image.filename);
+      saveAs(imageUrl, job?.thumbnail?.filename);
     } else {
       dispatch(showToast(t('errors.download_no_url', 5000, 'error')));
     }
   };
 
-  const onClickDelete = (id) => {
-    dispatch(deleteJob(id, true));
-    deleteCallback && deleteCallback(id);
+  const onClickDelete = async (id) => {
+    const deletedId = await dispatch(deleteJob(id, true));
+    if (deletedId) {
+      dispatch(showToast(t('components.jobs_table.deleted')));
+      deleteCallback && deleteCallback(id);
+    } else {
+      dispatch(showToast(t('errors.cannot_delete')));
+    }
   };
 
   const RowActions = React.memo(({ row }) => (

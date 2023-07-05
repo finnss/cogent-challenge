@@ -33,7 +33,6 @@ app.use(
   })
 );
 
-// FIXME
 if (!isProduction) {
   app.use(errorhandler());
 }

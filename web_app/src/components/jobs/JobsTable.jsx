@@ -55,7 +55,7 @@ const JobsTable = ({ jobs, truncateUrl, deleteCallback, ...props }) => {
         accessor: 'thumbnail_url',
         Cell: ({ cell }) => {
           const url = getImageUrl(cell?.row?.original?.thumbnail?.path);
-          return url ? <Link to={url}>{truncateUrl ? truncate(url, 50) : url}</Link> : '–';
+          return url ? <Link to={url}>{truncateUrl ? truncate(url, 30) : url}</Link> : '–';
         },
       },
       {
@@ -109,7 +109,7 @@ const JobsTable = ({ jobs, truncateUrl, deleteCallback, ...props }) => {
   const onClickDownload = (job) => {
     const imageUrl = getImageUrl(job?.thumbnail?.path);
     if (imageUrl) {
-      saveAs(imageUrl, job.image.filename);
+      saveAs(imageUrl, job?.thumbnail?.filename);
     } else {
       dispatch(showToast(t('errors.download_no_url', 5000, 'error')));
     }
@@ -125,7 +125,7 @@ const JobsTable = ({ jobs, truncateUrl, deleteCallback, ...props }) => {
     }
   };
 
-  const modalDeleteCallback = () => {
+  const modalDeleteCallback = (id) => {
     deleteCallback && deleteCallback(id);
     setDataForDetailedImageModal(null);
   };
