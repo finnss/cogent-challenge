@@ -8,6 +8,9 @@ COPY . .
 # ==== BUILD =====
 # Install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
 RUN npm ci 
+# Make sure api host env variable from compose is read
+ARG REACT_APP_API_HOST
+ENV REACT_APP_API_HOST $REACT_APP_API_HOST
 # Build the app
 RUN npm run build
 # ==== RUN =======

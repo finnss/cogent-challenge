@@ -52,7 +52,7 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify(dev ? 'development' : 'production'),
       'CLIENT_VERSION': JSON.stringify(clientVersion),
       'ENV_CONFIG': JSON.stringify(envConfig),
-      'API_HOST': JSON.stringify(process.env.API_HOST),
+      'API_HOST': JSON.stringify(process.env.API_HOST || 'http://localhost:5000/api'),
     }),
     new ProvidePlugin({
       _: 'lodash',
