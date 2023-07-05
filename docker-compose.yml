@@ -37,8 +37,8 @@ services:
     ports:
       - "5000:5000"
     volumes:
-      - ./server/uploads:/usr/src/app/uploads
-      - ./server/thumbnails:/usr/src/app/thumbnails
+      - ./uploads:/usr/src/app/uploads
+      - ./thumbnails:/usr/src/app/thumbnails
 
   web_app:
     image: cogent-webapp

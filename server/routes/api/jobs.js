@@ -79,32 +79,37 @@ router.delete('/:id', function (req, res, next) {
       const thumbnail = job.thumbnail;
 
       // Delete Image file
-      try {
-        fs.unlink(image.path, (err) => {
-          if (err) console.error(err);
-        });
-      } catch (err) {
-        console.warn('Image seems to already be removed.');
+      if (fs.existsSync(image?.path)) {
+        try {
+          fs.unlink(image.path, (err) => {
+            if (err) console.error(err);
+          });
+        } catch (err) {
+          console.warn('Image seems to already be removed.');
+        }
       }
 
       // Delete Thumbnail file
-      try {
-        fs.unlink(thumbnail.path, (err) => {
-          if (err) console.error(err);
-        });
-      } catch (err) {
-        console.warn('Thumbnail seem to already be removed.');
+      if (fs.existsSync(thumbnail?.path)) {
+        try {
+          fs.unlink(thumbnail.path, (err) => {
+            if (err) console.error(err);
+          });
+        } catch (err) {
+          console.warn('Thumbnail seem to already be removed.');
+        }
       }
 
       // Delete MongoDB entries
-      const { deletedCount: dcImg } = await Image.deleteOne({ _id: image._id }).exec();
-      const { deletedCount: dcTb } = await Thumbnail.deleteOne({ _id: thumbnail._id }).exec();
+      const { deletedCount: dcImg } = await Image.deleteOne({ _id: image?._id }).exec();
+      const { deletedCount: dcTb } = await Thumbnail.deleteOne({ _id: thumbnail?._id }).exec();
       const { deletedCount: dcJob } = await Job.deleteOne({ _id: job._id }).exec();
 
-      if (dcImg + dcTb + dcJob === 3) {
-        return res.status(204).send();
+      if ((job.image && dcImg === 0) || (job.thumbnail && dcTb === 0) || dcJob === 0) {
+        return res.status(500).json({ error: 'Something went wrong while deleting job / image / thumbnail.' });
       }
-      return res.status(500).json({ error: 'Something went wrong while deleting job / image / thumbnail.' });
+
+      return res.status(204).send();
     })
     .catch(next);
 });

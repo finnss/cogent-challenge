@@ -1,45 +1,92 @@
-const test = require('node:test');
+const request = require('supertest');
+const mongoose = require('mongoose');
+require('../models/Image');
+require('../models/Job');
+const Image = mongoose.model('Image');
+const Job = mongoose.model('Job');
 
-const assert = require('assert/strict');
+const app = require('../app');
+const JOB_STATUSES = require('../models/Job');
 
-const { calcAge, createBox, canDrive, powerLevel, workSchedule } = require('./index');
+let imgId, jobId;
 
-// Calculates how old someone is and depending on the year this test could pass or fail
+/* Connecting to the database before each test. */
+beforeEach(async () => {
+  await mongoose.connect('mongodb://localhost/cogent');
 
-test('calculates age', () => {
-  return assert.equal(calcAge(2000), 22);
-});
-
-// Creates a box with an equal height and width
-
-test('creates a box', async (t) => {
-  await t.test('creates a small box', () => {
-    assert.equal(createBox(10, 10), 100);
+  const testImg = await Image.create({
+    filename: 'test-1234.jpg',
+    originalName: 'test.jpg',
+    path: 'uploads/test-1234.jpg',
+    contentType: 'image/jpg',
+    size: 10,
   });
+  imgId = testImg?._id;
 
-  await t.test('creates a large box', () => {
-    assert.equal(createBox(50, 50), 2500);
+  const job = new Job();
+  job.image = testImg;
+  job.status = JOB_STATUSES.PENDING;
+  await job.save();
+  jobId = job?._id;
+});
+
+/* Closing database connection after each test. */
+afterEach(async () => {
+  await Image.deleteOne({ _id: imgId }).exec();
+  await Job.deleteOne({ _id: jobId }).exec();
+
+  await mongoose.connection.close();
+});
+
+describe('GET /api/jobs', () => {
+  it('should return the test image in a list', async () => {
+    const res = await request(app).get('/api/jobs');
+    expect(res.statusCode).toBe(200);
+    expect(res.body.jobs.length).toBe(1);
+    expect(res.body.jobs[0].id).toBe(jobId.toString());
+    expect(res.body.jobs[0].status).toBe(JOB_STATUSES.PENDING);
+    expect(res.body.jobs[0].image.id).toBe(imgId.toString());
   });
 });
 
-// Checks to see whether or not the person has a full driving licence
+describe('GET /api/images', () => {
+  it('should return the test image in a list', async () => {
+    const res = await request(app).get('/api/images');
+    expect(res.statusCode).toBe(200);
+    console.log('asd', res.body);
 
-test('checks license', () => {
-  return assert.match(`${canDrive()}`, /Full Driving Licence/);
+    expect(res.body.length).toBe(1);
+    expect(res.body[0].id).toBe(imgId.toString());
+    expect(res.body[0].originalName).toBe('test.jpg');
+    expect(res.body[0].contentType).toBe('image/jpg');
+  });
 });
 
-// Confirms that the person has a power level that is over 9000!
-
-test('confirms power level', () => {
-  return assert.ok(powerLevel());
+describe('GET /api/jobs/:id', () => {
+  it('should return the job', async () => {
+    const res = await request(app).get(`/api/jobs/${jobId}`);
+    expect(res.statusCode).toBe(200);
+    expect(res.body.id).toBe(jobId.toString());
+  });
 });
 
-// Checks to see if the employees have the same amount of shift work days in a week
+describe('GET /api/images/:id', () => {
+  it('should return the image', async () => {
+    const res = await request(app).get(`/api/images/${imgId}`);
+    expect(res.statusCode).toBe(200);
+    expect(res.body.id).toBe(imgId.toString());
+  });
+});
 
-test('employees have an equal number of work days', () => {
-  const employeeOne = ['Monday', 'Tuesday', 'Wednesday,', 'Thursday'];
+describe('DELETE /api/jobs/:id', () => {
+  it('should delete the test job and the associated image', async () => {
+    const res = await request(app).delete(`/api/jobs/${jobId}`);
+    expect(res.statusCode).toBe(204);
 
-  const employeeTwo = ['Friday', 'Saturday', 'Sunday,', 'Monday'];
+    const dbJobs = await Job.find().exec();
+    expect(dbJobs.length).toBe(0);
 
-  return assert.equal(workSchedule(employeeOne.length, employeeTwo.length), 8);
+    const dbImages = await Image.find().exec();
+    expect(dbImages.length).toBe(0);
+  });
 });

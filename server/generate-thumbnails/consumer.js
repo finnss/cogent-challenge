@@ -34,7 +34,7 @@ module.exports = async function (redisJob, done) {
     // folder.
     const filename = path.parse(dbJob.image.filename).name + '-thumbnail' + path.extname(image.filename);
     const filepath = `thumbnails/${filename}`;
-    fs.writeFile(`${filepath}`, imgThumbnail, (err) => console.err(err));
+    fs.writeFile(`${filepath}`, imgThumbnail, (err) => console.error(err));
 
     // We then store the a referene to our newly generated Thumbnail in the database, along with some metadata.
     // Note that we do not store the actual data in the database.

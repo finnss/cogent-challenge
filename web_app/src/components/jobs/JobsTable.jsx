@@ -35,22 +35,20 @@ const JobsTable = ({ jobs, truncateUrl, deleteCallback, ...props }) => {
       {
         Header: t('components.jobs_table.thumbnail'),
         accessor: 'thumbnail',
-        Cell: ({ cell }) => {
-          return (
-            <img
-              src={getImageUrl(cell?.value?.path) || NoImg}
-              width={100}
-              height={100}
-              style={{ objectFit: 'contain', marginTop: '8px' }}
-            />
-          );
-        },
+        Cell: ({ cell }) => (
+          <img
+            src={getImageUrl(cell?.value?.path) || NoImg}
+            width={100}
+            height={100}
+            style={{ objectFit: 'contain', marginTop: '8px' }}
+          />
+        ),
         colWidth: '110px',
       },
       {
         Header: t('components.jobs_table.original_file_name'),
         accessor: 'originalFileName',
-        Cell: ({ cell }) => <Typography variant='body2'>{cell.row.original.image.originalName}</Typography>,
+        Cell: ({ cell }) => <Typography variant='body2'>{cell?.row?.original?.image?.originalName}</Typography>,
       },
       {
         Header: t('components.jobs_table.thumbnail_url'),
@@ -142,7 +140,7 @@ const JobsTable = ({ jobs, truncateUrl, deleteCallback, ...props }) => {
       </Tooltip>
 
       <Tooltip title={t('common.actions.delete')}>
-        <IconButton size='small' onClick={() => onClickDelete(row.id)}>
+        <IconButton size='small' onClick={() => onClickDelete(row?.id)}>
           <DeleteIcon />
         </IconButton>
       </Tooltip>

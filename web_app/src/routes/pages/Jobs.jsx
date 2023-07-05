@@ -41,7 +41,6 @@ const Jobs = () => {
   ];
 
   if (isLoading) {
-    console.log('jobs isLoading');
     return (
       <Container showErrorPage>
         <Loading />
