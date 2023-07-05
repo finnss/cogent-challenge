@@ -44,9 +44,9 @@ router.get('/:id', function (req, res, next) {
     .catch(next);
 });
 
+// Upload image
 router.post('/', upload.single('image'), (req, res, next) => {
   const filename = req.file?.filename;
-  console.log('filename', filename);
   if (!req?.file || !filename) {
     res.status(400).send({ error: 'Missing required field: file' });
     return;
@@ -59,18 +59,15 @@ router.post('/', upload.single('image'), (req, res, next) => {
     contentType: req.file.mimetype,
     size: req.file.size,
   };
-  console.log('beofre image.create');
   Image.create(obj)
     .then(async (item) => {
-      console.log('immage created! Starting generate thumbnail job...');
       // On successful image creation, we create a long-running job to generate a thumbnail.
       const job = await startGenerateThumbnailJob(item);
-      // item.job = job;
-      // item.save();
+
       res.status(201).json({ jobId: job._id });
     })
     .catch((err) => {
-      console.log('Error creating image:', err);
+      console.err('Error creating image:', err);
     });
 });
 

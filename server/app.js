@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 
 app.use(require('method-override')());
 app.use(express.static(__dirname + '/public'));
-console.log("__dirname + '/public'", __dirname + '/public');
+
 // Serve uploaded full-size images
 app.use('/uploads', express.static(__dirname + '/uploads'));
 // Serve generated thumbnails
@@ -33,6 +33,7 @@ app.use(
   })
 );
 
+// FIXME
 if (!isProduction) {
   app.use(errorhandler());
 }
@@ -40,7 +41,7 @@ if (!isProduction) {
 if (isProduction) {
   mongoose.connect(process.env.MONGODB_URI);
 } else {
-  mongoose.connect('mongodb://localhost/cogent');
+  mongoose.connect(process.env.MONGODB_URI || `mongodb://localhost/cogent`);
   mongoose.set('debug', true);
 }
 

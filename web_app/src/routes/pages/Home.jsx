@@ -77,7 +77,6 @@ const Home = () => {
   }, [pollJobId]);
 
   if (isLoading) {
-    console.log('home isLoading');
     return (
       <Container showErrorPage>
         <Loading />

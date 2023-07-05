@@ -13,5 +13,8 @@ RUN npm install
 # Bundle app source
 COPY . .
 
+# Make folders writeable
+# RUN chmod a+rwx -R /app/smarty.cache.dir
+
 EXPOSE 8080
 CMD [ "node", "app.js" ]

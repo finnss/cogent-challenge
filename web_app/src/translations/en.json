@@ -18,7 +18,8 @@
       "next": "Next",
       "previous": "Previous",
       "remove": "Remove",
-      "submit": "Submit"
+      "submit": "Submit",
+      "close": "Close"
     },
     "states": {
       "loading": "Loading",

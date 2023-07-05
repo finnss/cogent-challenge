@@ -33,24 +33,19 @@ const DetailedImageModal = ({ dataForDetailedImageModal, setDataForDetailedImage
       {
         Header: t('components.detailed_image.full_size_image'),
         accessor: 'image_path',
-        Cell: ({ cell }) => {
-          return <img src={getImageUrl(cell.row.original.image.path) || NoImg} />;
-        },
+        Cell: ({ cell }) => <img src={getImageUrl(cell.row.original.image.path) || NoImg} />,
       },
       {
         Header: t('components.jobs_table.thumbnail'),
         accessor: 'thumbnail',
-        Cell: ({ cell }) => {
-          console.log('rendering thumbnail. row', cell.row.original);
-          return (
-            <img
-              src={getImageUrl(cell?.value?.path) || NoImg}
-              width={100}
-              height={100}
-              style={{ objectFit: 'contain', marginTop: '8px' }}
-            />
-          );
-        },
+        Cell: ({ cell }) => (
+          <img
+            src={getImageUrl(cell?.value?.path) || NoImg}
+            width={100}
+            height={100}
+            style={{ objectFit: 'contain', marginTop: '8px' }}
+          />
+        ),
         colWidth: '110px',
       },
       {
@@ -98,10 +93,7 @@ const DetailedImageModal = ({ dataForDetailedImageModal, setDataForDetailedImage
   );
 
   const onClickDownload = (job) => {
-    console.log('download clicked! job', job);
     const imageUrl = getImageUrl(job?.thumbnail?.path);
-    console.log('imageUrl', imageUrl);
-
     if (imageUrl) {
       saveAs(imageUrl, job.image.filename);
     } else {

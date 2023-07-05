@@ -4,6 +4,9 @@ import { Alert, Snackbar } from '@mui/material';
 import { dismissToast } from '/modules/toast';
 import '/style/toast.scss';
 
+/**
+ * Popup in the corner to inform the user of events and updates.
+ */
 const Toast = () => {
   const dispatch = useDispatch();
   const toastOpts = useSelector((state) => state.toast.toast);

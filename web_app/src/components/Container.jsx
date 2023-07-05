@@ -12,7 +12,7 @@ import ErrorPage from '/routes/common/ErrorPage';
 import Breadcrumbs from '/components/Breadcrumbs';
 
 /**
- * Container component that wraps a page
+ * Container component that wraps a page.
  * Displays AppBar and Footer around the content. Adds breadcrumbs if present.
  */
 const Container = ({ pageTitle, className, pageClassName, contentClassName, breadcrumbs, showErrorPage, children }) => {

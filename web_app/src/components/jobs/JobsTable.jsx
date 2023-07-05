@@ -13,6 +13,7 @@ import dayjs from 'dayjs';
 import NoImg from '/assets/no_img.png';
 import Table from '/components/table/Table';
 import DetailedImageModal from '/components/jobs/DetailedImageModal';
+import Link from '/components/common/Link';
 import { deleteJob } from '/modules/jobs';
 import { showToast } from '/modules/toast';
 import { getImage } from '/modules/images';
@@ -20,8 +21,10 @@ import { getImageUrl, truncate } from '/util';
 import '/style/jobs.scss';
 import '/style/jobstable.scss';
 import '/style/table.scss';
-import Link from '/components/common/Link';
 
+/**
+ * Component to show a list of jobs in a table, along with thumnails when ready.
+ */
 const JobsTable = ({ jobs, truncateUrl, deleteCallback, ...props }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -101,13 +104,12 @@ const JobsTable = ({ jobs, truncateUrl, deleteCallback, ...props }) => {
     if (detailedImage) {
       setDataForDetailedImageModal({ ...job, image: detailedImage });
     } else {
-      dispatch(showToast(t('errors.detailed_image')));
+      dispatch(showToast(t('errors.detailed_image', 5000, 'error')));
     }
   };
 
   const onClickDownload = (job) => {
     const imageUrl = getImageUrl(job?.thumbnail?.path);
-
     if (imageUrl) {
       saveAs(imageUrl, job.image.filename);
     } else {

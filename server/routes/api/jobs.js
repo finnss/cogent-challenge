@@ -41,7 +41,6 @@ router.get('/', function (req, res, next) {
   ]).then(function (results) {
     const jobs = results[0];
     const jobsCount = results[1];
-    console.log('jobsCount', jobsCount);
 
     return res.json({
       jobs: jobs.map(function (job) {
@@ -54,7 +53,6 @@ router.get('/', function (req, res, next) {
 
 // Get a single job by id
 router.get('/:id', function (req, res, next) {
-  console.log('getting single job. req.params.id', req.params.id);
   Job.findById(req.params.id)
     .populate('image')
     .populate('thumbnail')
@@ -80,13 +78,25 @@ router.delete('/:id', function (req, res, next) {
       const image = job.image;
       const thumbnail = job.thumbnail;
 
-      fs.unlink(image.path, (err) => {
-        if (err) console.error(err);
-      });
-      fs.unlink(thumbnail.path, (err) => {
-        if (err) console.error(err);
-      });
+      // Delete Image file
+      try {
+        fs.unlink(image.path, (err) => {
+          if (err) console.error(err);
+        });
+      } catch (err) {
+        console.warn('Image seems to already be removed.');
+      }
 
+      // Delete Thumbnail file
+      try {
+        fs.unlink(thumbnail.path, (err) => {
+          if (err) console.error(err);
+        });
+      } catch (err) {
+        console.warn('Thumbnail seem to already be removed.');
+      }
+
+      // Delete MongoDB entries
       const { deletedCount: dcImg } = await Image.deleteOne({ _id: image._id }).exec();
       const { deletedCount: dcTb } = await Thumbnail.deleteOne({ _id: thumbnail._id }).exec();
       const { deletedCount: dcJob } = await Job.deleteOne({ _id: job._id }).exec();

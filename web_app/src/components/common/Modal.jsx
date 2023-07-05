@@ -3,7 +3,6 @@ import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton, Box, Divider } from '@mui/material';
 import { Close as CloseIcon } from '@mui/icons-material';
-import colors from '/style/colors.scss';
 import '/style/modal.scss';
 import clsx from 'clsx';
 

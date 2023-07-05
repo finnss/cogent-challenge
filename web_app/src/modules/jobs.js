@@ -4,8 +4,6 @@ const GET_JOBS_BEGIN = 'GET_JOBS_BEGIN';
 const GET_JOBS_SUCCESS = 'GET_JOBS_SUCCESS';
 const GET_JOB_BEGIN = 'GET_JOB_BEGIN';
 const GET_JOB_SUCCESS = 'GET_JOB_SUCCESS';
-const ADD_JOB_BEGIN = 'ADD_JOB_BEGIN';
-const ADD_JOB_SUCCESS = 'ADD_JOB_SUCCESS';
 const DELETE_JOB_BEGIN = 'DELETE_JOB_BEGIN';
 const DELETE_JOB_SUCCESS = 'DELETE_JOB_BEGIN';
 
@@ -32,33 +30,19 @@ export const getJob =
     return job;
   };
 
-export const addJob =
-  (newJob, doInBackground = false) =>
-  async (dispatch) => {
-    dispatch({ type: ADD_JOB_BEGIN, doInBackground });
-    const job = await API.jobs.addJob(newJob);
-    dispatch({ type: ADD_JOB_SUCCESS, job });
-    return job;
-  };
-
 export const deleteJob =
   (id, doInBackground = false) =>
   async (dispatch) => {
-    console.log('delete reducer start. id', id, 'doInBackground', doInBackground);
     dispatch({ type: DELETE_JOB_BEGIN, doInBackground });
     const a = await API.jobs.deleteJob(id);
-    console.log('a', a);
     dispatch({ type: DELETE_JOB_SUCCESS, id });
-    console.log('After dispatch.');
     return id;
   };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case GET_JOB_BEGIN:
-    case ADD_JOB_BEGIN:
     case GET_JOBS_BEGIN:
-      // case DELETE_JOB_BEGIN:
       return {
         ...state,
         loading: action.doInBackground ? false : true,
@@ -77,13 +61,6 @@ export default function reducer(state = initialState, action) {
         jobs: state.jobs.map((p) => p.id).includes(action.job.id)
           ? state.jobs.map((job) => (job.id === action.job.id ? action.job : job))
           : [...state.jobs, action.job],
-        loading: false,
-      };
-
-    case ADD_JOB_SUCCESS:
-      return {
-        ...state,
-        jobs: [...state.jobs, action.job],
         loading: false,
       };
 

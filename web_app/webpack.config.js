@@ -7,8 +7,7 @@ const { DefinePlugin, ProvidePlugin } = require('webpack');
 const { dev, envConfig, clientVersion } = require('./build_util');
 require('dotenv').config();
 
-const BUILD_DIR = path.resolve(__dirname, 'public');
-console.log('in webpack. process.env', process.env);
+const BUILD_DIR = path.resolve(__dirname, 'build');
 
 module.exports = {
   mode: dev ? 'development' : 'production',
@@ -21,7 +20,7 @@ module.exports = {
   },
 
   devServer: {
-    host: 'localhost',
+    host: '0.0.0.0',
     port: '3000',
     historyApiFallback: true,
     open: true,

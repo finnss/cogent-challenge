@@ -14,7 +14,7 @@ const JOB_STATUSES = require('../models/Job');
  * When this job reached the front of the queue, it is processed in './consumer.js'.
  **/
 const startGenerateThumbnailJob = async (image) => {
-  const thumbnailGenerationQueue = new Bull('thumbnail-generation');
+  const thumbnailGenerationQueue = new Bull('thumbnail-generation', process.env.REDIS_URI || 'redis://127.0.0.1:6379');
 
   const job = new Job();
   job.image = image;

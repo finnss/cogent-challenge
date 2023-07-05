@@ -15,7 +15,7 @@ const consumer = require('./consumer');
  * After successful thumbnail generation, the job is marked as completed. Subsequent calls to /jobs will include
  * the generated thumbnail as part of the JSON response, allowing the frontend to display the thumbnails.
  **/
-const thumbnailGenerationQueue = new Bull('thumbnail-generation');
+const thumbnailGenerationQueue = new Bull('thumbnail-generation', process.env.REDIS_URI || 'redis://127.0.0.1:6379');
 
 thumbnailGenerationQueue.process(consumer);
 thumbnailGenerationQueue.addListener('completed', listener);

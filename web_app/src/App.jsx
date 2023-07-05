@@ -11,7 +11,6 @@ import store from './store';
 
 /**
  * App is the root component and entry point for the frontend
-
  */
 function App() {
   return (

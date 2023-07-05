@@ -4,32 +4,42 @@ services:
   mongo:
     image: mongo
     environment:
-        # - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USER}
-        # - MONGO_INITDB_ROOT_PASSWORD=${MONGO_ROOT_PASSWORD}
         - MONGO_INITDB_DATABASE=cogent
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo:/data/db
+
+  redis-queue:
+    image: redis:6.2-alpine
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server
+    volumes: 
+      - redis:/data
+
   server:
     image: cogent-server
     build:
       context: server
       dockerfile: ./Dockerfile
     environment:
-      - ME_CONFIG_MONGODB_SERVER=mongo
-      # - ME_CONFIG_MONGODB_PORT=27017
-      # - ME_CONFIG_MONGODB_ENABLE_ADMIN=false
-      # - ME_CONFIG_MONGODB_AUTH_DATABASE=admin
-      # - ME_CONFIG_MONGODB_AUTH_USERNAME=${MONGO_ROOT_USER}
-      # - ME_CONFIG_MONGODB_AUTH_PASSWORD=${MONGO_ROOT_PASSWORD}
-      # - ME_CONFIG_BASICAUTH_USERNAME=${MONGOEXPRESS_LOGIN}
-      # - ME_CONFIG_BASICAUTH_PASSWORD=${MONGOEXPRESS_PASSWORD}
+      - NODE_ENV=dev
+      - MONGODB_URI=mongodb://mongo:27017/cogent
+      - REDIS_URI=redis://redis-queue:6379
     depends_on:
       - mongo
+      - redis-queue
     ports:
       - "5000:5000"
-    expose:
-      - "5000"
     volumes:
-      - server:/uploads
-      - server:/thumbnails
+      - ./server/uploads:/usr/src/app/uploads
+      - ./server/thumbnails:/usr/src/app/thumbnails
+
   web_app:
     image: cogent-webapp
     build:
@@ -37,15 +47,11 @@ services:
       dockerfile: ./Dockerfile
     environment:
       - API_HOST=http://localhost:5000/api
-      # - ME_CONFIG_MONGODB_PORT=27017
-      # - ME_CONFIG_MONGODB_ENABLE_ADMIN=false
-      # - ME_CONFIG_MONGODB_AUTH_DATABASE=admin
-      # - ME_CONFIG_MONGODB_AUTH_USERNAME=${MONGO_ROOT_USER}
-      # - ME_CONFIG_MONGODB_AUTH_PASSWORD=${MONGO_ROOT_PASSWORD}
-      # - ME_CONFIG_BASICAUTH_USERNAME=${MONGOEXPRESS_LOGIN}
-      # - ME_CONFIG_BASICAUTH_PASSWORD=${MONGOEXPRESS_PASSWORD}
     ports:
       - "3000:3000" 
 
 volumes:
-  server:
+  mongo:
+    driver: local
+  redis:
+    driver: local
