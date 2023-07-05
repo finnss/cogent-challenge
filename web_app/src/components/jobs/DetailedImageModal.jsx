@@ -24,7 +24,7 @@ import '/style/table.scss';
  * DetailedImageModal is a modal used to show detailed information about an image. This modal
  * is shown when the user clicks on a row in the jobs table to get more details.
  */
-const DetailedImageModal = ({ dataForDetailedImageModal, setDataForDetailedImageModal }) => {
+const DetailedImageModal = ({ dataForDetailedImageModal, setDataForDetailedImageModal, deleteCallback }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -153,6 +153,7 @@ const DetailedImageModal = ({ dataForDetailedImageModal, setDataForDetailedImage
 DetailedImageModal.propTypes = {
   dataForDetailedImageModal: PropTypes.object,
   setDataForDetailedImageModal: PropTypes.any.isRequired,
+  deleteCallback: PropTypes.func,
 };
 
 export default React.memo(DetailedImageModal);

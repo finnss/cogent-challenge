@@ -1,6 +1,10 @@
 # Cogent Labs Code Challenge – Emoji upload service
 
-This is my submission for the Cogent Labs code challenge. 
+*Last updated Jul 5th 2023*
+
+This is Finn Julius Stephansen-Smith's submission for the Cogent Labs code challenge! ✨
+
+## Running using Docker
 
 The project can be run with docker using compose: 
 `$ docker compose up -d`
@@ -9,14 +13,23 @@ For running the frontend and backend normally, see the respective READMEs.
 
 ## Notes
 
-I decided to implement the long-running task architechture using Redis and Bull. With Bull you create a queue that is stored
-in redis, and you can put jobs into the queue. When a job reaches the front of this queue, it is "popped" out of the redis database
-and you can process it. This corresponds to a "publish/subscribe"-type architechture. I also use mongodb database models to store
+I decided to implement the long-running task architechture using Redis and Bull. With Bull you create a queue implemented in redis, 
+and you can then put anything into the queue. When a job reaches the front of this queue, it is "popped" out of the redis database
+and you can process it. This corresponds to a "publish/subscribe"-type architechture. I also use MongoDB database models to store
 metadata about uploaded images and thumbnails, as well as a connection entity "Job" that is used both as the datatype sent to 
-the Redis queue and also for exposing data to the front-end.
+the Redis queue and also for exposing data to the front-end. I chose Mongo as it is a natural partner to any NodeJS backend given
+their similar data structures, and I chose Redis for queues as it seemed to be the most reccomended option online and Redis has a
+good renown.
 
 ## Future improvement
 
 Looking forward, there are definitely a couple of areas I would have liked to improve if the app were to reach actual production:
 
 - Allowing upload of multiple images at once. This would have been escpecially "cool" given our long-running task architechture, because it would have possible to see images moving from "Pending" to "Processing" to "Complete" one by one, in order.
+- More fine-grained control, ie the ability to delete only a thumbnail but not its image, etc.
+- Move image hosting to the cload, ie S3.
+- Fixing bugs. There are a couple of weaknesses in the application, including a routing issue frontend where refreshing on any page except `/` leads to a 404. This is a webpack / npx serve setting issue that I ran out of time to fix, unfortunately. Routing using buttons in the GUI works fine.
+- Better testing. I implemented simple Jest tests backend that test every API endpoint thoroughly, except the most important one: image upload. Setting up redis to work during tests and thus getting a full end-to-end test of the long-running tasks is something I would have like to focus on going forward. I did implement end-to-end testing using Cypress frontend, which at least means that the image upload is not entirely untested.
+- CI/CD. Any deployment to a cloud environment would have given raise to the need for a CI/CD pipeline, ideally including automated linting checks and automated test runs before build and deployments.
+
+Thank you for considering my application!
