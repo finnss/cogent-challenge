@@ -125,6 +125,11 @@ const JobsTable = ({ jobs, truncateUrl, deleteCallback, ...props }) => {
     }
   };
 
+  const modalDeleteCallback = () => {
+    deleteCallback && deleteCallback(id);
+    setDataForDetailedImageModal(null);
+  };
+
   const RowActions = React.memo(({ row }) => (
     <Box display='flex' justifyContent='center'>
       <Tooltip title={t('common.actions.view')}>
@@ -166,6 +171,7 @@ const JobsTable = ({ jobs, truncateUrl, deleteCallback, ...props }) => {
       <DetailedImageModal
         dataForDetailedImageModal={dataForDetailedImageModal}
         setDataForDetailedImageModal={setDataForDetailedImageModal}
+        deleteCallback={modalDeleteCallback}
       />
     </>
   );

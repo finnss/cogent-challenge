@@ -103,6 +103,7 @@ const DetailedImageModal = ({ dataForDetailedImageModal, setDataForDetailedImage
 
   const onClickDelete = (id) => {
     dispatch(deleteJob(id, true));
+    deleteCallback && deleteCallback(id);
   };
 
   const RowActions = React.memo(({ row }) => (
